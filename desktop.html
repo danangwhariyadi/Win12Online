@@ -75,7 +75,7 @@ toggletheme() 切换主题
 欢迎补充~
 -->
 <!DOCTYPE html>
-<html lang="zh" class="mica">
+<html lang="en" class="mica">
 
 <head>
 	<meta charset="UTF-8" />
@@ -122,8 +122,8 @@ toggletheme() 切换主题
 
 	<base target="_blank">
 
-	<title>Win12 网页版</title>
-	<meta name="description" content="Win12 网页版是一个在线体验 Windows 12 操作系统的开源项目, 使用 HTML、CSS 和 JavaScript 模拟 Windows 12 操作系统的界面与交互。">
+	<title>Win12 Online</title>
+	<meta name="description" content="Win12 Online is an open-source project for experiencing the Windows 12 interface in the browser using HTML, CSS, and JavaScript.">
 </head>
 
 
@@ -167,7 +167,7 @@ toggletheme() 切换主题
 			<svg style="position:absolute;left:calc(50% - 25px);top:72%;" width="50px" height="50px" viewBox="0 0 16 16">
 				<circle cx="8px" cy="8px" r="7px"></circle>
 			</svg>
-			<p id="loadbackupdate" style="position:absolute;top:calc(72% + 55px);left:0;width:100%;text-align:center;color:#fff;font-size: 25px;display:none;" data-i18n="updating">休对故人思故国，且将新火试新茶<br>正在更新</p>
+			<p id="loadbackupdate" style="position:absolute;top:calc(72% + 55px);left:0;width:100%;text-align:center;color:#fff;font-size: 25px;display:none;" data-i18n="updating">Preparing the experience<br>Updating</p>
 		</loading>
 		<script>
 			setTimeout(() => {
@@ -181,17 +181,17 @@ toggletheme() 切换主题
             <img src="icon/ls.svg" alt="半透明图标" class="svg translucent">
             <img src="icon/ls.svg" alt="旋转图标" class="svg rotating">
         </div>
-        <div data-i18n="cover-hp">横屏以获得最佳体验</div>
-        <button class="orientation-close-btn" onclick="dismissOrientation();" data-i18n="cover-hp-close">继续使用竖屏</button>
+        <div data-i18n="cover-hp">Rotate to landscape for the best experience</div>
+        <button class="orientation-close-btn" onclick="dismissOrientation();" data-i18n="cover-hp-close">Continue in portrait mode</button>
     </div>
 	<div id="loginback">
 		<div class="user"></div>
 		<div class="name">Administrator</div>
 		
-		<input id="login-password" type="password" autocomplete="current-password" placeholder="密码" onkeydown="if(event.keyCode==13){win12LoginSubmit();}">
+		<input id="login-password" type="password" autocomplete="current-password" placeholder="Password" onkeydown="if(event.keyCode==13){win12LoginSubmit();}">
 		<div id="login-error"></div>
 		<div id="login" onclick="win12LoginSubmit();" data-i18n="login">
-			登录
+			Sign in
 		</div>
 		<div id="login-welc" style="opacity: 0;">
 			<loading>
@@ -202,7 +202,7 @@ toggletheme() 切换主题
 			<p style="font-size: 22px;
             color: #fff;
 			margin-top: 5px;
-            text-align: center;" data-i18n="welcome">欢迎</p>
+            text-align: center;" data-i18n="welcome">Welcome</p>
 		</div>
 		<list class="langselect new">
 			<span class="text" style="font-size: 22px;"><i class="bi bi-globe2"></i></span>
@@ -211,10 +211,11 @@ toggletheme() 切换主题
 					localStorage.setItem('lang',langc[navigator.language]);
 				else
 					localStorage.setItem('lang','en-US');
-				window.location.href='';">Default language of the browser</a>
-			<a class="a zh-CN" onclick="localStorage.setItem('lang','zh-CN');window.location.href='';">简体中文</a>
-			<a class="a zh-TW" onclick="localStorage.setItem('lang','zh-TW');window.location.href='';">繁體中文</a>
+				window.location.href='';">Browser default</a>
+			<a class="a zh-CN" onclick="localStorage.setItem('lang','zh-CN');window.location.href='';">Simplified Chinese</a>
+			<a class="a zh-TW" onclick="localStorage.setItem('lang','zh-TW');window.location.href='';">Traditional Chinese</a>
 			<a class="a en" onclick="localStorage.setItem('lang','en');window.location.href='';">English</a>
+			<a class="a id" onclick="localStorage.setItem('lang','id');window.location.href='';">Bahasa Indonesia</a>
 		</list>
 		<a class="power" onclick="$(this).addClass('show')">
 			<!-- <i class="bi bi-translate" onclick="
@@ -225,8 +226,8 @@ toggletheme() 切换主题
 				}
 				window.location.href='';
 				" win12_title="Toggle language"></i> -->
-			<i class="bi bi-power" onclick="setTimeout(() => {window.location='shutdown.html';}, 200);" win12_title="关机"></i>
-			<i class="bi bi-arrow-counterclockwise" onclick="setTimeout(() => {window.location='reload.html';}, 200);" win12_title="重启"></i>
+			<i class="bi bi-power" onclick="setTimeout(() => {window.location='shutdown.html';}, 200);" win12_title="Shut down"></i>
+			<i class="bi bi-arrow-counterclockwise" onclick="setTimeout(() => {window.location='reload.html';}, 200);" win12_title="Restart"></i>
 		</a>
 	</div>
 
@@ -249,7 +250,7 @@ toggletheme() 切换主题
 				<svg viewBox="0,0,257,344" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><defs><clipPath id="user-clip0"><rect x="382" y="195" width="257" height="344" /></clipPath><linearGradient x1="351.462" y1="233.56" x2="669.496" y2="500.422" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="user-fill1"><stop offset="0" stop-color="#A964C8" /><stop offset="0.35" stop-color="#A964C8" /><stop offset="0.87" stop-color="#2D8AD5" /><stop offset="1" stop-color="#2D8AD5" /></linearGradient><linearGradient x1="351.462" y1="233.56" x2="669.496" y2="500.422" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="user-fill2"><stop offset="0" stop-color="#A964C8" /><stop offset="0.35" stop-color="#A964C8" /><stop offset="0.87" stop-color="#2D8AD5" /><stop offset="1" stop-color="#2D8AD5" /></linearGradient></defs><g clip-path="url(#user-clip0)" transform="translate(-382 -195)"><path d="M637.755 433.872C642.215 515.221 579.577 537.983 508.011 537.983 436.444 537.983 376.676 507.833 383.513 437.11 383.109 425.234 389.59 414.133 398.634 409.891 413.82 402.768 444.753 402.936 507.484 402.997 570.214 403.058 609.164 402.279 621.521 407.947 633.878 413.614 638.011 424.609 637.755 433.872Z" fill="url(#user-fill1)" fill-rule="evenodd" /><path d="M422 285C422 235.847 461.623 196 510.5 196 559.377 196 599 235.847 599 285 599 334.153 559.377 374 510.5 374 461.623 374 422 334.153 422 285Z" fill="url(#user-fill2)" fill-rule="evenodd" /></g></svg>
 			</div>
 			<p style="width: 100%;text-align: center;margin: -50px 0 20px 0;font-size: 30px;">Administrator</p>
-			<input type="text" class="input" win12_title="搜索" placeholder="在这里输入你要搜索的内容" onfocus="hide_startmenu();
+			<input type="text" class="input" win12_title="Search" placeholder="Type what you want to search for here" onfocus="hide_startmenu();
 				$('#search-btn').addClass('show');
 				$('#search-win').addClass('show-begin');
 				setTimeout(() => {
@@ -620,7 +621,7 @@ toggletheme() 切换主题
 								<img class="img" />
 								<div class="text">
 									<p class="temperature">--℃</p>
-									<p class="detail">-- 体感温度 --℃</p>
+									<p class="detail">--</p>
 								</div>
 							</div>
 						</div>
@@ -774,7 +775,7 @@ toggletheme() 切换主题
 		</div>
 		<div class="cont">
 			<div class="head" data-i18n="data-week">
-				<p>一</p><p>二</p><p>三</p><p>四</p><p>五</p><p>六</p><p>日</p>
+				<p data-i18n="calendar.mon">一</p><p data-i18n="calendar.tue">二</p><p data-i18n="calendar.wed">三</p><p data-i18n="calendar.thu">四</p><p data-i18n="calendar.fri">五</p><p data-i18n="calendar.sat">六</p><p data-i18n="calendar.sun">日</p>
 			</div>
 			<div class="body">
 			</div>
@@ -783,7 +784,7 @@ toggletheme() 切换主题
 	<div id="dock-box">
 		<!-- Dock(任务) 栏 -->
 		<div class="dock dock-start">
-			<a class="dock-btn" id="start-btn" win12_title="开始 (Ctrl+Win)" onclick="openDockWidget('start-menu')" oncontextmenu="return showcm(event,'winx',null)">
+			<a class="dock-btn" id="start-btn" win12_title="开始 (Ctrl+Win)" data-i18n-attr="win12_title" data-i18n-key="dock.start" onclick="openDockWidget('start-menu')" oncontextmenu="return showcm(event,'winx',null)">
 				<!-- 开始按钮 -->
 				<svg class="menu" viewBox="0,0,440,439" xmlns="http://www.w3.org/2000/svg"
 					xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden">
@@ -807,12 +808,12 @@ toggletheme() 切换主题
 				</svg>
 				<img src="icon/logo.svg" class="ico">
 			</a>
-			<a class="dock-btn" id="search-btn" win12_title="搜索" onclick="openDockWidget('search-win')">
+			<a class="dock-btn" id="search-btn" win12_title="搜索" data-i18n-attr="win12_title" data-i18n-key="dock.search" onclick="openDockWidget('search-win')">
 				<!--搜索按钮-->
 				<svg class="out" width="26" height="26" viewBox="0,0,228,229" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><defs><clipPath id="clip-search-out-0"><rect x="548" y="268" width="228" height="229"/></clipPath><linearGradient x1="738.799" y1="300.076" x2="608.064" y2="486.786" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="fill-search-out-1"><stop offset="0" stop-color="#A6A6A6"/><stop offset="0.18" stop-color="#A6A6A6"/><stop offset="0.91" stop-color="#595959"/><stop offset="1" stop-color="#595959"/></linearGradient></defs><g clip-path="url(#clip-search-out-0)" transform="translate(-548 -268)"><path d="M640 268.696C690.41 268.696 731.276 309.574 731.276 360 731.276 378.91 725.529 396.477 715.687 411.049L713.816 413.318 771.4 470.903C777.068 476.571 777.068 485.761 771.4 491.429 765.732 497.097 756.542 497.097 750.874 491.429L693.292 433.847 691.033 435.711C676.465 445.556 658.904 451.305 640 451.304 589.59 451.305 548.724 410.426 548.724 360 548.724 309.574 589.59 268.696 640 268.696Z" fill="url(#fill-search-out-1)" fill-rule="evenodd"/></g></svg>
 				<svg class="in" width="20" height="20" viewBox="0,0,134,134" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><defs><clipPath id="clip-search-in-0"><rect x="573" y="293" width="134" height="134"/></clipPath><linearGradient x1="611.068" y1="280.509" x2="668.932" y2="439.491" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="fill-search-in-1"><stop offset="0" stop-color="#82CDF6"/><stop offset="0.18" stop-color="#82CDF6"/><stop offset="0.91" stop-color="#4297D6"/><stop offset="1" stop-color="#4297D6"/></linearGradient><image width="132" height="132" xlink:href="data:image/png;base64,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" preserveAspectRatio="none" id="img2"></image><clipPath id="clip-search-in-3"><rect x="574" y="294" width="132" height="132"/></clipPath></defs><g clip-path="url(#clip-search-in-0)" transform="translate(-573 -293)"><path d="M574 360C574 323.549 603.549 294 640 294 676.451 294 706 323.549 706 360 706 396.451 676.451 426 640 426 603.549 426 574 396.451 574 360Z" fill="url(#fill-search-in-1)" fill-rule="evenodd"/><g clip-path="url(#clip-search-in-3)"><use width="100%" height="100%" xlink:href="#img2" transform="translate(574 294)"></use></g></g></svg>
 			</a>
-			<a class="dock-btn" id="widgets-btn" win12_title="小组件" onclick="news.setup(); openDockWidget('widgets')">
+			<a class="dock-btn" id="widgets-btn" win12_title="小组件" data-i18n-attr="win12_title" data-i18n-key="dock.widgets" onclick="news.setup(); openDockWidget('widgets')">
 				<!--小组件按钮-->
 				<svg viewBox="0,0,260,260" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden" class="wid1"><defs><clipPath id="clip-wid1-0"><rect x="510" y="230" width="260" height="260"/></clipPath><linearGradient x1="551.891" y1="207.391" x2="728.109" y2="512.609" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="fill-wid1-1"><stop offset="0" stop-color="#7AB1FA"/><stop offset="0.18" stop-color="#7AB1FA"/><stop offset="0.91" stop-color="#4C6EDC"/><stop offset="1" stop-color="#4C6EDC"/></linearGradient></defs><g clip-path="url(#clip-wid1-0)" transform="translate(-510 -230)"><path d="M511 274.001C511 250.252 530.252 231 554.001 231L725.999 231C749.748 231 769 250.252 769 274.001L769 445.999C769 469.748 749.748 489 725.999 489L554.001 489C530.252 489 511 469.748 511 445.999Z" fill="url(#fill-wid1-1)" fill-rule="evenodd"/></g></svg>
 				<svg viewBox="0,0,175,206" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden" class="wid2"><defs><filter id="fx0" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="5.81042 5.77778"/></filter><filter id="fx1" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="4 4"/></filter><filter id="fx2" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="4 4"/></filter><filter id="fx3" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="4 4"/></filter><clipPath id="clip-wid2-4"><rect x="615" y="214" width="175" height="206"/></clipPath><clipPath id="clip-wid2-5"><rect x="-6.53674" y="-6.5" width="101.068" height="115"/></clipPath><clipPath id="clip-wid2-6"><rect x="0" y="0" width="89" height="104"/></clipPath><linearGradient x1="644.325" y1="249.245" x2="754.675" y2="380.755" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="fill-wid2-7"><stop offset="0" stop-color="#775CFE"/><stop offset="0.43" stop-color="#775CFE"/><stop offset="0.83" stop-color="#2473DC"/><stop offset="1" stop-color="#2473DC"/></linearGradient><clipPath id="clip-wid2-8"><rect x="-5" y="-5" width="67" height="42"/></clipPath><clipPath id="clip-wid2-9"><rect x="0" y="0" width="57" height="35"/></clipPath><clipPath id="clip-wid2-10"><rect x="-5" y="-5" width="103" height="42"/></clipPath><clipPath id="clip-wid2-11"><rect x="0" y="0" width="93" height="35"/></clipPath><clipPath id="clip-wid2-12"><rect x="-5" y="-5" width="80" height="42"/></clipPath><clipPath id="clip-wid2-13"><rect x="0" y="0" width="72" height="35"/></clipPath></defs><g clip-path="url(#clip-wid2-4)" transform="translate(-615 -214)"><g clip-path="url(#clip-wid2-5)" filter="url(#fx0)" transform="matrix(1.98876 0 0 2 614 213)"><g clip-path="url(#clip-wid2-6)"><path d="M18.2408 33.043C18.2408 24.8162 24.9475 18.1472 33.2208 18.1472L56.0574 18.1472C64.3306 18.1472 71.0374 24.8162 71.0374 33.043L71.0374 71.2513C71.0374 79.4781 64.3306 86.1472 56.0574 86.1472L33.2208 86.1472C24.9475 86.1472 18.2408 79.4781 18.2408 71.2513Z" fill="#FF0000" fill-rule="evenodd"/></g></g><path d="M647 276.792C647 260.338 660.338 247 676.792 247L722.208 247C738.662 247 752 260.338 752 276.792L752 353.208C752 369.662 738.662 383 722.208 383L676.792 383C660.338 383 647 369.662 647 353.208Z" fill="url(#fill-wid2-7)" fill-rule="evenodd"/><g clip-path="url(#clip-wid2-8)" filter="url(#fx1)" transform="translate(649 260)"><g clip-path="url(#clip-wid2-9)"><path d="M17.3857 17.3857 39.7776 17.3858" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></g><path d="M664.5 275.5 686.892 275.5" stroke="#FFFFFF" stroke-width="8.66667" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/><g clip-path="url(#clip-wid2-10)" filter="url(#fx2)" transform="translate(649 282)"><g clip-path="url(#clip-wid2-11)"><path d="M17.3857 17.3857 75.9099 17.3858" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></g><path d="M664.5 297.5 723.024 297.5" stroke="#FFFFFF" stroke-width="8.66667" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/><g clip-path="url(#clip-wid2-12)" filter="url(#fx3)" transform="translate(649 305)"><g clip-path="url(#clip-wid2-13)"><path d="M17.3857 17.3857 54.5358 17.3858" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></g><path d="M664.5 320.5 701.65 320.5" stroke="#FFFFFF" stroke-width="8.66667" stroke-linecap="round" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></svg>
@@ -828,7 +829,7 @@ toggletheme() 切换主题
 		<div id="toolbar">
 
 		</div>
-		<div class="a dock theme" win12_title="切换主题" onclick="toggletheme()">
+		<div class="a dock theme" win12_title="切换主题" data-i18n-attr="win12_title" data-i18n-key="dock.theme" onclick="toggletheme()">
 			<!--切换主题-->
 			<svg viewBox="0,0,307,307" class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><defs><clipPath id="theme-light-clip0"><rect x="79" y="77" width="307" height="307" /></clipPath><linearGradient x1="128.499" y1="49.9991" x2="337.501" y2="412.001" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="theme-light-fill1"><stop offset="0" stop-color="#FFC567" /><stop offset="0.18" stop-color="#FFC567" /><stop offset="0.8" stop-color="#EE54F2" /></linearGradient></defs><g clip-path="url(#theme-light-clip0)" transform="translate(-79 -77)"><path d="M80 231C80 146.5 148.5 78 233 78 317.5 78 386 146.5 386 231 386 315.5 317.5 384 233 384 148.5 384 80 315.5 80 231Z" fill="url(#theme-light-fill1)" fill-rule="evenodd" /></g></svg>
 			<svg viewBox="0,0,275,294" class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><defs><clipPath id="theme-dark-clip0"><rect x="525" y="230" width="275" height="294" /></clipPath><linearGradient x1="599.492" y1="203.887" x2="725.508" y2="550.113" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="theme-dark-fill1"><stop offset="0" stop-color="#2474B6" /><stop offset="0.42" stop-color="#2474B6" /><stop offset="0.98" stop-color="#FFD966" /><stop offset="1" stop-color="#FFD966" /></linearGradient></defs><g clip-path="url(#theme-dark-clip0)" transform="translate(-525 -230)"><path d="M635.002 236.062C638.664 240.491 639.245 246.694 636.469 251.721 625.869 271.094 620.334 292.809 620.372 314.869 620.372 388.255 680.469 447.679 754.537 447.679 764.199 447.679 773.604 446.675 782.643 444.759 788.307 443.538 794.156 445.809 797.493 450.526 801.036 455.459 800.803 462.148 796.925 466.824 767.803 502.434 724.103 523.073 677.976 523 593.458 523 525 455.217 525 371.701 525 308.846 563.757 254.933 618.942 232.083 624.588 229.708 631.132 231.329 635.002 236.062Z" fill="url(#theme-dark-fill1)" fill-rule="evenodd" /></g></svg>
@@ -1312,13 +1313,13 @@ toggletheme() 切换主题
 			<div class="page">
 				<!-- 主页  begin -->
 				<div class="cnt home show">
-					<p class="title">主页</p>
+					<p class="title" data-i18n="setting.home.title">主页</p>
 					<div style="display: flex;margin: 25px;width: 100%;">
 						<p class="s-icon" style="font-size: 70px;margin: -8px 10px 0px 20px;"></p>
 						<div>
 							<p style="font-size: 28px;text-overflow: ellipsis;white-space: nowrap;">Desktop-PingGai</p>
 							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;">瓶盖</p>
-							<a style="color: var(--href);text-decoration: underline !important;;" class="a" onclick="shownotice('rename-pc')">重命名</a>
+							<a style="color: var(--href);text-decoration: underline !important;;" class="a" onclick="shownotice('rename-pc')" data-i18n="setting.home.rename">重命名</a>
 						</div>
 					</div>
 					<!-- <div style="display: flex;"></div> -->
@@ -1326,18 +1327,18 @@ toggletheme() 切换主题
 						<div>
 					<div class="setting-card">
 						<img src="apps/icons/setting/ms.png" style="width: 35px; height: 35px;margin: 5px;">
-						<span style="font-size: 18px;">所有功能尽在 Microsoft 账户</span>
-						<span style="font-size: 14px;color:var(--text2)">登录后，即可在设备上使用你最喜爱的 Microsoft 应用和服务。可以备份设备、让设备更安全，并使用 Microsoft 365 应用版和云储存空间。</span>
+						<span style="font-size: 18px;" data-i18n="setting.home.msaccount">所有功能尽在 Microsoft 账户</span>
+						<span style="font-size: 14px;color:var(--text2)" data-i18n="setting.home.msaccount.desc">登录后，即可在设备上使用你最喜爱的 Microsoft 应用和服务。可以备份设备、让设备更安全，并使用 Microsoft 365 应用版和云储存空间。</span>
 						<img src="apps/icons/setting/ms365.png" style="height: 40px;width: max-content;">
-						<a class="a button" onclick="window.location.href='./bluescreen.html?code=YOU_CAN_NOT_SIGN_IN_YOUR_MICROSOFT_ACCOUNT'" win12_title="BSOD is coming!" style="width: 100px;">登录</a>
+						<a class="a button" onclick="window.location.href='./bluescreen.html?code=YOU_CAN_NOT_SIGN_IN_YOUR_MICROSOFT_ACCOUNT'" win12_title="BSOD is coming!" style="width: 100px;" data-i18n="setting.home.signin">登录</a>
 					</div>
 					<div class="setting-card">
-						<p>推荐设置<br><span style="font-size: 14px;color:var(--text2)">最近使用的和常用的设置</span></p>
+						<p><span data-i18n="setting.home.recommended">推荐设置</span><br><span style="font-size: 14px;color:var(--text2)" data-i18n="setting.home.recommended.desc">最近使用的和常用的设置</span></p>
 						<div class="setting-list">
 							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();">
-								<icon>&#xE771;</icon><div><p>个性化</p><p>个性化你的系统</p></div><i class="bi bi-chevron-right"></i></a>
+								<icon>&#xE771;</icon><div><p data-i18n="setting.home.personalization">个性化</p><p data-i18n="setting.home.personalization.desc">个性化你的系统</p></div><i class="bi bi-chevron-right"></i></a>
 							<a onclick="$('#win-setting>.menu>list>a.safe')[0].click();">
-								<icon>&#xE7EF;</icon><div><p>隐私与安全性</p><p>管理你的信息和数据</p></div><i class="bi bi-chevron-right"></i></a>
+								<icon>&#xE7EF;</icon><div><p data-i18n="setting.home.privacy">隐私与安全性</p><p data-i18n="setting.home.privacy.desc">管理你的信息和数据</p></div><i class="bi bi-chevron-right"></i></a>
 							<!-- <a><icon><i class="bi bi-power"></i></icon><div><p>电源和电池</p><p></p></div><i class="bi bi-chevron-right"></i></a>
 							<a><icon><i class="bi bi-window-desktop"></i></icon><div><p>任务栏</p><p></p></div><i class="bi bi-chevron-right"></i></a>
 							<a><icon><i class="bi bi-camera"></i></icon><div><p>摄像头</p><p></p></div><i class="bi bi-chevron-right"></i></a> -->
@@ -1346,17 +1347,17 @@ toggletheme() 切换主题
 					</div>
 					<div>
 					<div class="setting-card">
-						<p>个性化<br><span style="font-size: 14px;color:var(--text2)">个性化你的系统</span></p>
+						<p><span data-i18n="setting.home.personalization2">个性化</span><br><span style="font-size: 14px;color:var(--text2)" data-i18n="setting.home.personalization2.desc">个性化你的系统</span></p>
 						<div class="setting-list">
-							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE790;</icon><div><p>主题色</p><p>设置 Windows 的主题色</p></div><i class="bi bi-chevron-right"></i></a>
-							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE58E;</icon><div><p>平滑圆角</p><p>启用平滑圆角</p></div><i class="bi bi-chevron-right"></i></a>
-							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE621;</icon><div><p>Mica 背景</p><p>为焦点窗口开启 Mica 效果</p></div><i class="bi bi-chevron-right"></i></a>
+							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE790;</icon><div><p data-i18n="setting.home.themecolor">主题色</p><p data-i18n="setting.home.themecolor.desc">设置 Windows 的主题色</p></div><i class="bi bi-chevron-right"></i></a>
+							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE58E;</icon><div><p data-i18n="setting.home.smoothcorners">平滑圆角</p><p data-i18n="setting.home.smoothcorners.desc">启用平滑圆角</p></div><i class="bi bi-chevron-right"></i></a>
+							<a onclick="$('#win-setting>.menu>list>a.appearance')[0].click();"><icon>&#xE621;</icon><div><p data-i18n="setting.home.mica">Mica 背景</p><p data-i18n="setting.home.mica.desc">为焦点窗口开启 Mica 效果</p></div><i class="bi bi-chevron-right"></i></a>
 						</div>
 					</div>
 					<div class="setting-card">
-						<p>蓝牙设备<br><span style="font-size: 14px;color:var(--text2)">管理、添加和删除设备</span></p>
+						<p><span data-i18n="setting.home.bluetooth">蓝牙设备</span><br><span style="font-size: 14px;color:var(--text2)" data-i18n="setting.home.bluetooth.desc">管理、添加和删除设备</span></p>
 						<div class="setting-list">
-							<a onclick="$('#win-setting>.menu>list>a.blueteeth')[0].click();"><icon>&#xE702;</icon><div><p>蓝牙</p><p></p></div><i class="bi bi-chevron-right"></i></a>
+							<a onclick="$('#win-setting>.menu>list>a.blueteeth')[0].click();"><icon>&#xE702;</icon><div><p data-i18n="setting.home.bluetooth.name">蓝牙</p><p></p></div><i class="bi bi-chevron-right"></i></a>
 						</div>
 					</div>
 					</div></div>
@@ -1364,75 +1365,75 @@ toggletheme() 切换主题
 				</div>
 				<!-- 主页  end -->
 				<div class="cnt system">
-					<p class="title">系统</p>
+					<p class="title" data-i18n="setting.system.title">系统</p>
 					<div style="display: flex;">
 						<p class="s-icon" style="font-size: 70px;margin: -8px 10px 0px 20px;"></p>
 						<div>
 							<p style="font-size: 28px;text-overflow: ellipsis;white-space: nowrap;">Desktop-PingGai</p>
 							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;">瓶盖</p>
-							<a style="color: var(--href);text-decoration: underline !important;;" class="a" onclick="shownotice('rename-pc')">重命名</a>
+							<a style="color: var(--href);text-decoration: underline !important;;" class="a" onclick="shownotice('rename-pc')" data-i18n="setting.system.rename">重命名</a>
 						</div>
 					</div>
 					<div class="setting-list">
-						<a><icon></icon><div><p>屏幕</p><p>显示器、亮度、夜间模式、显示描述</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>声音</p><p>声音级别、输入、输出、声音设备</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>通知</p><p>来自系统和应用的警报</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>专注</p><p>通知、自动规则</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon class="b">&#xF186;</icon><div><p>电源和电池</p><p>睡眠、电池使用情况、节电模式</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>存储</p><p>存储空间、驱动器、配置规则</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>多任务处理</p><p>贴靠窗口、桌面、任务切换</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>激活</p><p>激活状态、订阅、产品密钥</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>疑难解答</p><p>建议的疑难解答、首选项和历史记录</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>恢复</p><p>重置、高级启动、返回</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>投影到此电脑</p><p>权限、配对 PIN、可发现性</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>远程桌面</p><p>远程桌面用户、连接权限</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>剪贴板</p><p>剪贴和复制历史记录、同步、清除</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>系统信息</p><p>设备规格、重命名电脑、Windows 规格</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.display">屏幕</p><p data-i18n="setting.system.display.desc">显示器、亮度、夜间模式、显示描述</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.sound">声音</p><p data-i18n="setting.system.sound.desc">声音级别、输入、输出、声音设备</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.notifications">通知</p><p data-i18n="setting.system.notifications.desc">来自系统和应用的警报</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.focus">专注</p><p data-i18n="setting.system.focus.desc">通知、自动规则</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon class="b">&#xF186;</icon><div><p data-i18n="setting.system.power">电源和电池</p><p data-i18n="setting.system.power.desc">睡眠、电池使用情况、节电模式</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.storage">存储</p><p data-i18n="setting.system.storage.desc">存储空间、驱动器、配置规则</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.multitask">多任务处理</p><p data-i18n="setting.system.multitask.desc">贴靠窗口、桌面、任务切换</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.activation">激活</p><p data-i18n="setting.system.activation.desc">激活状态、订阅、产品密钥</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.troubleshoot">疑难解答</p><p data-i18n="setting.system.troubleshoot.desc">建议的疑难解答、首选项和历史记录</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.recovery">恢复</p><p data-i18n="setting.system.recovery.desc">重置、高级启动、返回</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.cast">投影到此电脑</p><p data-i18n="setting.system.cast.desc">权限、配对 PIN、可发现性</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.remotedesktop">远程桌面</p><p data-i18n="setting.system.remotedesktop.desc">远程桌面用户、连接权限</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.clipboard">剪贴板</p><p data-i18n="setting.system.clipboard.desc">剪贴和复制历史记录、同步、清除</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.system.sysinfo">系统信息</p><p data-i18n="setting.system.sysinfo.desc">设备规格、重命名电脑、Windows 规格</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 蓝牙与设备 -->
 				<div class="cnt blueteeth">
-					<p class="title">蓝牙与设备</p>
+					<p class="title" data-i18n="setting.bluetooth.title">蓝牙与设备</p>
 					<div style="display: flex;">
 						<p class="s-icon" style="font-size: 70px;margin: -8px 10px 0px 20px;"></p>
 						<div>
-							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;">我的蓝牙名称</p>
+							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;" data-i18n="setting.bluetooth.myname">我的蓝牙名称</p>
 							<p style="font-size: 28px;text-overflow: ellipsis;white-space: nowrap;">Blueteeth-PingGai</p>
-							<p class="blueteeth-tips-text" style="color: #7f7f7f;margin:-8px 0 -5px 0;">这是您在其他设备的蓝牙列表中的名称</p>
-							<a style="color: var(--href);text-decoration: underline !important;;" class="a">重命名</a>
+							<p class="blueteeth-tips-text" style="color: #7f7f7f;margin:-8px 0 -5px 0;" data-i18n="setting.bluetooth.myname.desc">这是您在其他设备的蓝牙列表中的名称</p>
+							<a style="color: var(--href);text-decoration: underline !important;;" class="a" data-i18n="setting.bluetooth.rename">重命名</a>
 						</div>
 					</div>
 					<div class="setting-list">
-						<a><icon></icon><div><p>连接</p><p>搜索新的蓝牙设备</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>设备</p><p>蓝牙鼠标、键盘、其他蓝牙设备</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>打印机和扫描仪</p><p>设置打印机、排除故障</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>移动设备</p><p>立即从电脑访问移动设备</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>触摸板</p><p>点击、滚动、缩放、手势</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>笔和 Windows Ink</p><p>设置触控笔、设置触控屏幕</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>USB</p><p>通知、USB 节电模式</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.connections">连接</p><p data-i18n="setting.bluetooth.connections.desc">搜索新的蓝牙设备</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.devices">设备</p><p data-i18n="setting.bluetooth.devices.desc">蓝牙鼠标、键盘、其他蓝牙设备</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.printers">打印机和扫描仪</p><p data-i18n="setting.bluetooth.printers.desc">设置打印机、排除故障</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.mobile">移动设备</p><p data-i18n="setting.bluetooth.mobile.desc">立即从电脑访问移动设备</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.touchpad">触摸板</p><p data-i18n="setting.bluetooth.touchpad.desc">点击、滚动、缩放、手势</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.pen">笔和 Windows Ink</p><p data-i18n="setting.bluetooth.pen.desc">设置触控笔、设置触控屏幕</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.bluetooth.usb">USB</p><p data-i18n="setting.bluetooth.usb.desc">通知、USB 节电模式</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 蓝牙与设备 end -->
 				<!-- 网络和 Internet -->
 				<div class="cnt network">
-					<p class="title">网络和 Internet</p>
+					<p class="title" data-i18n="setting.network.title">网络和 Internet</p>
 					<div style="display: flex;">
 						<p class="s-icon" style="font-size: 70px;margin: -8px 15px 0px 20px;"></p>
 						<div>
-							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;">WLAN 已连接</p>
+							<p style="color: #7f7f7f;margin:-8px 0 -5px 0;" data-i18n="setting.network.wlanconnected">WLAN 已连接</p>
 							<p style="font-size: 28px;text-overflow: ellipsis;white-space: nowrap;">PingGai - 5G</p>
-							<a style="color: var(--href);text-decoration: underline !important;;" class="a">断开</a>
+							<a style="color: var(--href);text-decoration: underline !important;;" class="a" data-i18n="setting.network.disconnect">断开</a>
 						</div>
 					</div>
 					<div class="setting-list">
-						<a><icon></icon><div><p>WLAN</p><p>连接、管理已连接网络</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>移动网络 未连接</p><p>通过移动网络访问互联网</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>VPN</p><p>添加、连接、管理</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>移动热点</p><p>共享 Internet 连接</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>飞行模式</p><p>停止无线通信</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>代理</p><p>用于 WI-Fi 和以太网的代理服务器</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>拨号</p><p>设置拨号 Internet 连接</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>高级网络设置</p><p>查看所有网络适配器、网络重置</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.wlan">WLAN</p><p data-i18n="setting.network.wlan.desc">连接、管理已连接网络</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.mobile">移动网络 未连接</p><p data-i18n="setting.network.mobile.desc">通过移动网络访问互联网</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.vpn">VPN</p><p data-i18n="setting.network.vpn.desc">添加、连接、管理</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.hotspot">移动热点</p><p data-i18n="setting.network.hotspot.desc">共享 Internet 连接</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.airplane">飞行模式</p><p data-i18n="setting.network.airplane.desc">停止无线通信</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.proxy">代理</p><p data-i18n="setting.network.proxy.desc">用于 WI-Fi 和以太网的代理服务器</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.dialup">拨号</p><p data-i18n="setting.network.dialup.desc">设置拨号 Internet 连接</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.network.advanced">高级网络设置</p><p data-i18n="setting.network.advanced.desc">查看所有网络适配器、网络重置</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 网络和 Internet end -->
@@ -1521,21 +1522,21 @@ toggletheme() 切换主题
 				</div>
 				<!-- 应用 -->
 				<div class="cnt apps">
-					<p class="title">应用</p>
+					<p class="title" data-i18n="setting.apps.title">应用</p>
 					<div class="setting-list">
-						<a><icon></icon><div><p>安装的应用</p><p>已安装的应用程序、应用程序执行别名</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>默认应用</p><p>文件和链接类型的默认值，其他默认值</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>离线地图</p><p>下载、存储位置、地图更新</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>可选内容</p><p>为您的设备提供额外功能</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>可打开的网站应用</p><p>可以在应用程序而不是浏览器中打开的网站</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>视频播放</p><p>视频格式调整、HDR 流媒体、电池选项</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>启动</p><p>登录时自动启动的应用程序</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.installed">安装的应用</p><p data-i18n="setting.apps.installed.desc">已安装的应用程序、应用程序执行别名</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.defaults">默认应用</p><p data-i18n="setting.apps.defaults.desc">文件和链接类型的默认值，其他默认值</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.offlinemaps">离线地图</p><p data-i18n="setting.apps.offlinemaps.desc">下载、存储位置、地图更新</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.optional">可选内容</p><p data-i18n="setting.apps.optional.desc">为您的设备提供额外功能</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.webapps">可打开的网站应用</p><p data-i18n="setting.apps.webapps.desc">可以在应用程序而不是浏览器中打开的网站</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.video">视频播放</p><p data-i18n="setting.apps.video.desc">视频格式调整、HDR 流媒体、电池选项</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.apps.startup">启动</p><p data-i18n="setting.apps.startup.desc">登录时自动启动的应用程序</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 应用 end -->
 				<!-- 账户 -->
 				<div class="cnt user">
-					<p class="title">账户</p>
+					<p class="title" data-i18n="setting.accounts.title">账户</p>
 					<div style="display: flex;margin: 10px 5px;">
 						<!-- <div style="display:flex"> -->
 							<svg viewBox="0,0,257,344" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100px;height: 100px;background-color: var(--hover-b);width: 60px;width: 60px;height: 60px;border-radius: 50%;padding: 15px;margin-right: 15px;margin-bottom: 15px;" overflow="hidden"><defs><clipPath id="user-clip1"><rect x="382" y="195" width="257" height="344" /></clipPath><linearGradient x1="351.462" y1="233.56" x2="669.496" y2="500.422" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="user-fill3"><stop offset="0" stop-color="#A964C8" /><stop offset="0.35" stop-color="#A964C8" /><stop offset="0.87" stop-color="#2D8AD5" /><stop offset="1" stop-color="#2D8AD5" /></linearGradient><linearGradient x1="351.462" y1="233.56" x2="669.496" y2="500.422" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="user-fill4"><stop offset="0" stop-color="#A964C8" /><stop offset="0.35" stop-color="#A964C8" /><stop offset="0.87" stop-color="#2D8AD5" /><stop offset="1" stop-color="#2D8AD5" /></linearGradient></defs><g clip-path="url(#user-clip1)" transform="translate(-382 -195)"><path d="M637.755 433.872C642.215 515.221 579.577 537.983 508.011 537.983 436.444 537.983 376.676 507.833 383.513 437.11 383.109 425.234 389.59 414.133 398.634 409.891 413.82 402.768 444.753 402.936 507.484 402.997 570.214 403.058 609.164 402.279 621.521 407.947 633.878 413.614 638.011 424.609 637.755 433.872Z" fill="url(#user-fill3)" fill-rule="evenodd" /><path d="M422 285C422 235.847 461.623 196 510.5 196 559.377 196 599 235.847 599 285 599 334.153 559.377 374 510.5 374 461.623 374 422 334.153 422 285Z" fill="url(#user-fill4)" fill-rule="evenodd" /></g></svg>
@@ -1546,103 +1547,103 @@ toggletheme() 切换主题
 						<!-- </div> -->
 					</div>
 					<div class="setting-list">
-						<a><icon></icon><div><p>您的微软账户</p><p>订阅、账单等</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>您的账户信息</p><p>电子邮件、日历和联系人使用的帐户</p></div><i class="bi bi-chevron-right"></i></a>
-						<a class="dp sign-in-options" onclick="$('.dp.sign-in-options').toggleClass('show');win12RefreshPasswordSettingStatus();"><icon></icon><div><p>登录选项</p><p>Windows Hello、安全密钥、密码、动态锁</p></div><i class="bi bi-chevron-down"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.msaccount">您的微软账户</p><p data-i18n="setting.accounts.msaccount.desc">订阅、账单等</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.info">您的账户信息</p><p data-i18n="setting.accounts.info.desc">电子邮件、日历和联系人使用的帐户</p></div><i class="bi bi-chevron-right"></i></a>
+						<a class="dp sign-in-options" onclick="$('.dp.sign-in-options').toggleClass('show');win12RefreshPasswordSettingStatus();"><icon></icon><div><p data-i18n="setting.accounts.signin">登录选项</p><p data-i18n="setting.accounts.signin.desc">Windows Hello、安全密钥、密码、动态锁</p></div><i class="bi bi-chevron-down"></i></a>
 						<div class="dp sign-in-options">
 							<div class="setting-password">
 								<div>
-									<p>密码</p>
-									<p id="setting-password-status">加载中</p>
+									<p data-i18n="setting.accounts.password">密码</p>
+									<p id="setting-password-status" data-i18n="setting.accounts.password.loading">加载中</p>
 								</div>
-								<input id="setting-password-current" class="input" type="password" autocomplete="current-password" placeholder="当前密码">
-								<input id="setting-password-new" class="input" type="password" autocomplete="new-password" placeholder="新密码" onkeydown="if(event.keyCode==13){win12SetLoginPassword();}">
-								<a id="setting-password-submit" class="a button" onclick="win12SetLoginPassword();">保存</a>
+								<input id="setting-password-current" class="input" type="password" autocomplete="current-password" placeholder="当前密码" data-i18n-attr="placeholder" data-i18n-key="setting.accounts.password.current">
+								<input id="setting-password-new" class="input" type="password" autocomplete="new-password" placeholder="新密码" data-i18n-attr="placeholder" data-i18n-key="setting.accounts.password.new" onkeydown="if(event.keyCode==13){win12SetLoginPassword();}">
+								<a id="setting-password-submit" class="a button" onclick="win12SetLoginPassword();" data-i18n="setting.accounts.password.save">保存</a>
 							</div>
 						</div>
-						<a><icon></icon><div><p>电子邮件和账户</p><p>电子邮件、日历和联系人使用的帐户</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>家庭</p><p>管理您的家庭群组、编辑帐户类型和设备权限</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>Windows 备份</p><p>备份您的文件、应用程序、首选项以跨设备恢复它们</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>其他用户</p><p>设备访问、工作或学校用户、信息亭分配的访问</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>登录工作或学校账户</p><p>电子邮件、应用程序和网络等组织资源</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.email">电子邮件和账户</p><p data-i18n="setting.accounts.email.desc">电子邮件、日历和联系人使用的帐户</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.family">家庭</p><p data-i18n="setting.accounts.family.desc">管理您的家庭群组、编辑帐户类型和设备权限</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.backup">Windows 备份</p><p data-i18n="setting.accounts.backup.desc">备份您的文件、应用程序、首选项以跨设备恢复它们</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.otherusers">其他用户</p><p data-i18n="setting.accounts.otherusers.desc">设备访问、工作或学校用户、信息亭分配的访问</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.accounts.workschool">登录工作或学校账户</p><p data-i18n="setting.accounts.workschool.desc">电子邮件、应用程序和网络等组织资源</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 账户 end -->
 				<!-- 时间 -->
 				<div class="cnt time">
-					<p class="title">时间和语言</p>
+					<p class="title" data-i18n="setting.time.title">时间和语言</p>
 					<div class="settingTimeItem">
-						<p class="settingTimeTitle">当前设备时间：</p>
+						<p class="settingTimeTitle" data-i18n="setting.time.current">当前设备时间：</p>
 						<span class="settingTime"></span>
 					</div>
 					<div class="setting-list">
-						<a><icon></icon><div><p>日期与时间</p><p>时区、自动时钟设置、日历显示</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>语言和区域</p><p>Windows 和某些应用程序根据您所在的地区设置日期和时间的格式</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>输入</p><p>触摸键盘、文本建议、首选项</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon></icon><div><p>语音</p><p>语音语言、语音识别麦克风设置、声音</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.time.datetime">日期与时间</p><p data-i18n="setting.time.datetime.desc">时区、自动时钟设置、日历显示</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.time.language">语言和区域</p><p data-i18n="setting.time.language.desc">Windows 和某些应用程序根据您所在的地区设置日期和时间的格式</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.time.input">输入</p><p data-i18n="setting.time.input.desc">触摸键盘、文本建议、首选项</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.time.speech">语音</p><p data-i18n="setting.time.speech.desc">语音语言、语音识别麦克风设置、声音</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 时间 end -->
 				<!-- 游戏 begin -->
 				<div class="cnt game">
-					<p class="title">游戏</p>
+					<p class="title" data-i18n="setting.game.title">游戏</p>
 					<div class="setting-list">
-						<a><icon><i class="bi bi-xbox"></i></icon><div><p>Game Bar</p><p>控制器和键盘快捷方式</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon><i class="bi bi-camera"></i></icon><div><p>摄像</p><p>保存位置，录制首选项</p></div><i class="bi bi-chevron-right"></i></a>
-						<a><icon><i class="bi bi-controller"></i></icon><div><p>游戏模式</p><p>优化电脑以便畅玩</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon><i class="bi bi-xbox"></i></icon><div><p data-i18n="setting.game.gamebar">Game Bar</p><p data-i18n="setting.game.gamebar.desc">控制器和键盘快捷方式</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon><i class="bi bi-camera"></i></icon><div><p data-i18n="setting.game.captures">摄像</p><p data-i18n="setting.game.captures.desc">保存位置，录制首选项</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon><i class="bi bi-controller"></i></icon><div><p data-i18n="setting.game.gamemode">游戏模式</p><p data-i18n="setting.game.gamemode.desc">优化电脑以便畅玩</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 				<!-- 游戏 end -->
 				<div class="cnt safe">
-					<p class="title">隐私和安全性</p>
+					<p class="title" data-i18n="setting.privacy.title">隐私和安全性</p>
 					<div class="setting-list">
 						<a onclick="localStorage.setItem('desktop','[]');setIcon();">
 							<icon><i class="bi bi-trash3"></i></icon>
 							<div>
-								<p>清除桌面图标</p>
-								<p>这将清除用户自定义的所有图标</p>
+								<p data-i18n="setting.privacy.cleardesktop">清除桌面图标</p>
+								<p data-i18n="setting.privacy.cleardesktop.desc">这将清除用户自定义的所有图标</p>
 							</div><i class="bi bi-chevron-right"></i>
 						</a>
 						<a onclick="$('.dp.access-token').toggleClass('show')" class="dp access-token">
 							<icon><i class="bi bi-key"></i></icon>
 							<div>
-								<p>Token 管理</p>
-								<p>添加或删除 GitHub Access Token</p>
+								<p data-i18n="setting.privacy.token">Token 管理</p>
+								<p data-i18n="setting.privacy.token.desc">添加或删除 GitHub Access Token</p>
 							</div>
 							<i class="bi bi-chevron-down"></i>
 						</a>
 						<div class="dp access-token">
 							<input type="text" class="token input">
 							<div class="container" style="display: flex; align-items: center; gap: 10px; justify-content: space-evenly; margin-top: 6px;">
-								<div class="button" onclick="localStorage.setItem('token', $('.dp.access-token>input.token').val());">保存 Token</div>
-								<div class="button" onclick="localStorage.setItem('token', '');">清除 Token</div>
-								<div class="button" onclick="$('.dp.access-token>input.token').val(localStorage.getItem('token'));">查看 Token</div>
+								<div class="button" onclick="localStorage.setItem('token', $('.dp.access-token>input.token').val());" data-i18n="setting.privacy.token.save">保存 Token</div>
+								<div class="button" onclick="localStorage.setItem('token', '');" data-i18n="setting.privacy.token.clear">清除 Token</div>
+								<div class="button" onclick="$('.dp.access-token>input.token').val(localStorage.getItem('token'));" data-i18n="setting.privacy.token.view">查看 Token</div>
 							</div>
-							<div class="detail" style="font-size: 0.8em; color: var(--text2);">您可以在这里填入您的 Github Access Token 来提高 Github API 限制访问次数，即可以更好地使用 Windows 更新、主题等功能。您的 Token 仅会存放在本地浏览器中，该数据不会传输至服务端，也更不会外泄，但请您妥善保管好自己的 Token。</div>
+							<div class="detail" style="font-size: 0.8em; color: var(--text2);" data-i18n="setting.privacy.token.detail">您可以在这里填入您的 Github Access Token 来提高 Github API 限制访问次数，即可以更好地使用 Windows 更新、主题等功能。您的 Token 仅会存放在本地浏览器中，该数据不会传输至服务端，也更不会外泄，但请您妥善保管好自己的 Token。</div>
 						</div>
 					</div>
 				</div>
 				<div class="cnt update">
-					<p class="title">Windows 更新</p>
+					<p class="title" data-i18n="setting.update.title">Windows 更新</p>
 					<div class="lo">
 						<svg viewBox="0 0 65 65" version="1.1" id="svg5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs2"><linearGradient id="linearGradient12966"><stop style="stop-color:#1946ff;stop-opacity:1;" offset="0" id="stop12962"/><stop style="stop-color:#3eddff;stop-opacity:1;" offset="1" id="stop12964"/></linearGradient><linearGradient id="linearGradient10659"><stop style="stop-color:#6c00e8;stop-opacity:1;" offset="0" id="stop10655"/><stop style="stop-color:#d05ed6;stop-opacity:1;" offset="1" id="stop10657"/></linearGradient><linearGradient xlink:href="#linearGradient10659" id="linearGradient10661" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#linearGradient10659" id="linearGradient12869" gradientUnits="userSpaceOnUse" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854"/><linearGradient xlink:href="#linearGradient10659" id="linearGradient12871" gradientUnits="userSpaceOnUse" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854"/><linearGradient xlink:href="#linearGradient12966" id="linearGradient12968" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#linearGradient12966" id="linearGradient13788" gradientUnits="userSpaceOnUse" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854"/><linearGradient xlink:href="#linearGradient12966" id="linearGradient13790" gradientUnits="userSpaceOnUse" x1="40.558044" y1="64.876854" x2="103.16348" y2="64.876854"/></defs><g id="layer1"><g id="g8420" transform="rotate(-173.25016,50.599831,57.584909)" style="stroke:url(#linearGradient10661)"><path style="fill:none;stroke:url(#linearGradient12869);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" id="path234-2" d="M 43.058046,79.121117 A 28.487005,28.487005 0 0 1 66.602472,51.066164 28.487005,28.487005 0 0 1 98.316952,69.38588"/><path style="fill:none;stroke:url(#linearGradient12871);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" d="M 85.756154,73.849626 100.66351,72.185133 98.999027,57.27777" id="path1617-6"/></g><g id="g8420-2" transform="rotate(6.74984,459.81282,-281.39813)" style="stroke:url(#linearGradient12968);stroke-opacity:1"><path style="fill:none;stroke:url(#linearGradient13788);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" id="path234-2-2" d="M 43.058046,79.121117 A 28.487005,28.487005 0 0 1 66.602472,51.066164 28.487005,28.487005 0 0 1 98.316952,69.38588"/><path style="fill:none;stroke:url(#linearGradient13790);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="M 85.756154,73.849626 100.66351,72.185133 98.999027,57.27777" id="path1617-6-0"/></g></g></svg>
 						<div class="update-main">
 							<div class="part">
-								<p class="notice">正在检查更新...</p>
+								<p class="notice" data-i18n="setting.update.checking">正在检查更新...</p>
 								<p class="detail"></p>
 							</div>
-							<div><a class="a button update-check" onclick="apps.setting.checkUpdate(true)" style="font-size: 16px;margin-top: -7.5px;">检查更新</a></div>
+							<div><a class="a button update-check" onclick="apps.setting.checkUpdate(true)" style="font-size: 16px;margin-top: -7.5px;" data-i18n="setting.update.checkbtn">检查更新</a></div>
 						</div>
 					</div>
 					<div class="setting-list">
-						<a onclick="openapp('about');apps.about.page('update');" style="opacity: 0.5; pointer-events: none;"><icon>&#xE946;</icon><div><p>更新历史记录</p><p>查看历史版本功能</p></div><i class="bi bi-chevron-right"></i></a>
-						<a class="update-release disabled"><icon>&#xE896;</icon><div><p>下载完整内容</p><p>检查后可打开 GitHub 最新发布页</p></div><i class="bi bi-chevron-right"></i></a>
-						<div><icon></icon><div><p>自动更新</p><p>设置是否启用自动更新</p></div>
+						<a onclick="openapp('about');apps.about.page('update');" style="opacity: 0.5; pointer-events: none;"><icon>&#xE946;</icon><div><p data-i18n="setting.update.history">更新历史记录</p><p data-i18n="setting.update.history.desc">查看历史版本功能</p></div><i class="bi bi-chevron-right"></i></a>
+						<a class="update-release disabled"><icon>&#xE896;</icon><div><p data-i18n="setting.update.downloadfull">下载完整内容</p><p data-i18n="setting.update.downloadfull.desc">检查后可打开 GitHub 最新发布页</p></div><i class="bi bi-chevron-right"></i></a>
+						<div><icon></icon><div><p data-i18n="setting.update.autoupdate">自动更新</p><p data-i18n="setting.update.autoupdate.desc">设置是否启用自动更新</p></div>
 							<div class="alr">
 								<a class="checkbox checked a" onclick="$(this).toggleClass('checked'); autoUpdate = !autoUpdate; localStorage.setItem('autoUpdate', autoUpdate)"></a>
 							</div>
 						</div>
-						<a><icon></icon><div><p>Windows 预览体验计划</p><p>获取 Windows 的预览版本，以分享有关新功能的更新和反馈</p></div><i class="bi bi-chevron-right"></i></a>
+						<a><icon></icon><div><p data-i18n="setting.update.insider">Windows 预览体验计划</p><p data-i18n="setting.update.insider.desc">获取 Windows 的预览版本，以分享有关新功能的更新和反馈</p></div><i class="bi bi-chevron-right"></i></a>
 					</div>
 				</div>
 			</div>

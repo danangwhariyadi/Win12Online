@@ -23,23 +23,28 @@ function loadlang(code) {
         callback: function () {
             $('[data-i18n]').each(function () {
                 // 标签的内容
-                // console.log($(this).data("i18n"));
-                // console.log($.i18n.prop($(this).data("i18n")));
-                // if($.i18n.prop($(this).data("i18n"))!=$(this).html())console.log($(this).data("i18n"),$(this).html());
-                $(this).html($.i18n.prop($(this).data("i18n")));
+                var key = $(this).data("i18n");
+                var translated = $.i18n.prop(key);
+                // Don't replace with bracket placeholder text like [key]
+                if (translated && !translated.match(/^\[.*\]$/)) {
+                    $(this).html(translated);
+                }
             });
             $('[data-i18n-attr]').each(function () {
                 // 标签的属性
-
-                // if($.i18n.prop($(this).data("i18n-key"))!=$(this).attr($(this).data("i18n-attr")))console.log($(this).data("i18n-key"),$(this).attr($(this).data("i18n-attr")));
-                $(this).attr($(this).data("i18n-attr"), $.i18n.prop($(this).data("i18n-key")));
+                var key = $(this).data("i18n-key");
+                var translated = $.i18n.prop(key);
+                // Don't replace with bracket placeholder text like [key]
+                if (translated && !translated.match(/^\[.*\]$/)) {
+                    $(this).attr($(this).data("i18n-attr"), translated);
+                }
             });
             updateAboutAppEntrypoints();
         }
     });
 }
 
-let nl = 'zh-TW';
+let nl = 'en';
 let langc = {
     'zh-CN': 'zh-CN',
     'zh-cn': 'zh-CN',
@@ -57,11 +62,20 @@ let langc = {
     'en-US': 'en',
     'en-us': 'en',
     'en-GB': 'en',
-    'en-gb': 'en'
+    'en-gb': 'en',
+
+    'id': 'id',
+    'id-ID': 'id',
+    'id-id': 'id'
 }
 
 let langcode, lang = (txt, id) => {
-    return $.i18n.prop(id);
+    const translated = $.i18n.prop(id);
+    // Return translation only if it's valid (not bracket placeholder like [key])
+    if (translated && translated !== id && translated !== '' && !translated.match(/^\[.*\]$/)) {
+        return translated;
+    }
+    return txt;
 };
 
 if (localStorage.getItem('lang') != null) {
@@ -108,10 +122,10 @@ function isTauriApp() {
 }
 
 function getAboutAppTitle() {
-    if (!isTauriApp()) return lang('关于 Win12 网页版', 'about.name');
+    if (!isTauriApp()) return lang('About Win12 Online', 'about.name');
     if (langcode == 'en') return 'About Win12-desktop';
     if (langcode == 'zh-TW') return '關於 Win12-desktop';
-    return '关于 Win12-desktop';
+    return 'About Win12-desktop';
 }
 
 function updateAboutAppEntrypoints() {
@@ -240,7 +254,7 @@ async function initLoginPassword() {
             loginPasswordHasPassword = !!(status && status.has_password);
             if (loginPasswordHasPassword) {
                 $('#loginback').addClass('tauri-password');
-                $('#login-password').attr('placeholder', '密码');
+                $('#login-password').attr('placeholder', 'Password');
                 $('#login-password').focus();
             }
             else {
@@ -248,7 +262,7 @@ async function initLoginPassword() {
             }
         }
         catch (e) {
-            setLoginError('无法读取本地密码状态');
+            setLoginError('Unable to read the local password status');
         }
     }
 }
@@ -266,13 +280,13 @@ async function win12LoginSubmit() {
 
     const password = $('#login-password').val();
     if (!password) {
-        setLoginError('请输入密码');
+        setLoginError('Please enter your password');
         $('#login-password').focus();
         return;
     }
 
     $('#login').css('pointer-events', 'none');
-    setLoginError('正在验证');
+    setLoginError('Verifying');
 
     try {
         const result = await window.win12Native.verifyLoginPassword(password);
@@ -281,7 +295,7 @@ async function win12LoginSubmit() {
             win12FinishLogin();
             return;
         }
-        setLoginError('密码错误');
+        setLoginError('Incorrect password');
         $('#login-password').val('').focus();
     }
     catch (e) {
@@ -304,11 +318,11 @@ async function win12RefreshPasswordSettingStatus() {
     try {
         const status = await window.win12Native.getLoginPasswordStatus();
         loginPasswordHasPassword = !!(status && status.has_password);
-        $('#setting-password-status').text(loginPasswordHasPassword ? '已设置密码' : '未设置密码');
+        $('#setting-password-status').text(loginPasswordHasPassword ? 'Password set' : 'No password set');
         $('#setting-password-current')[loginPasswordHasPassword ? 'show' : 'hide']();
         $('#setting-password-current').val('');
         $('#setting-password-new').val('').prop('disabled', false);
-        $('#setting-password-new').attr('placeholder', loginPasswordHasPassword ? '新密码（留空清除密码）' : '新密码');
+        $('#setting-password-new').attr('placeholder', loginPasswordHasPassword ? 'New password (leave blank to clear)' : 'New password');
         $('#setting-password-submit').removeClass('disabled');
     }
     catch (e) {
@@ -325,24 +339,24 @@ async function win12SetLoginPassword() {
     const currentPassword = $('#setting-password-current').val();
     const newPassword = $('#setting-password-new').val();
     if (!loginPasswordHasPassword && !newPassword) {
-        $('#setting-password-status').text('请输入新密码');
+        $('#setting-password-status').text('Please enter a new password');
         $('#setting-password-new').focus();
         return;
     }
     if (loginPasswordHasPassword && !currentPassword) {
-        $('#setting-password-status').text('请输入当前密码');
+        $('#setting-password-status').text('Please enter the current password');
         $('#setting-password-current').focus();
         return;
     }
 
     $('#setting-password-submit').addClass('disabled');
     const clearingPassword = loginPasswordHasPassword && !newPassword;
-    $('#setting-password-status').text(clearingPassword ? '正在清除' : '正在保存');
+    $('#setting-password-status').text(clearingPassword ? 'Clearing password' : 'Saving password');
 
     try {
         await window.win12Native.setLoginPassword(loginPasswordHasPassword ? currentPassword : null, newPassword);
         await win12RefreshPasswordSettingStatus();
-        $('#setting-password-status').text(clearingPassword ? '密码已清空' : '密码已保存');
+        $('#setting-password-status').text(clearingPassword ? 'Password cleared' : 'Password saved');
     }
     catch (e) {
         $('#setting-password-status').text(String(e));
@@ -438,7 +452,6 @@ const cms = {
     'desktop': [
         [`<i class="bi bi-arrow-clockwise"></i> ${lang('刷新', 'refresh')} <info>F5</info>`, '$(\'#desktop\').css(\'opacity\',\'0\');setTimeout(()=>{$(\'#desktop\').css(\'opacity\',\'1\');},100);setIcon();'],
         ['<i class="bi bi-circle-square"></i> ' + lang('切换主题', 'desktop.tgltheme'), 'toggletheme()'],
-        `<a onmousedown="window.open(\'https://github.com/win12-online/win12\',\'_blank\');" win12_title="https://github.com/win12-online/win12" onmouseenter="showdescp(event)" onmouseleave="hidedescp(event)"><i class="bi bi-github"></i> ${lang('在 Github 中查看此项目', 'desktop.vogithub')}</a>`,
         arg => {
             if (edit_mode) {
                 return ['<i class="bi bi-pencil"></i> ' + lang('退出编辑模式', 'desktop.exitedit'), 'editMode();'];
@@ -447,7 +460,6 @@ const cms = {
                 return ['<i class="bi bi-pencil"></i> ' + lang('进入编辑模式', 'desktop.enteredit'), 'editMode();'];
             }
         },
-        ['<i class="bi bi-info-circle"></i> ' + getAboutAppTitle(), 'openapp(\'about\');'],
         ['<i class="bi bi-brush"></i> ' + lang('个性化', 'psnl'), 'openapp(\'setting\');$(\'#win-setting > div.menu > list > a.enable.appearance\')[0].click()']
     ],
     'desktop.icon': [
@@ -465,10 +477,10 @@ const cms = {
     'winx': [
         arg => {
             if ($('#start-menu').hasClass('show')) {
-                return ['<i class="bi bi-box-arrow-in-down"></i> 关闭开始菜单', 'hide_startmenu()'];
+                return ['<i class="bi bi-box-arrow-in-down"></i> ' + lang('关闭开始菜单', 'winx.closemenu'), 'hide_startmenu()'];
             }
             else {
-                return ['<i class="bi bi-box-arrow-in-up"></i> 打开开始菜单', `$('#start-btn').addClass('show');
+                return ['<i class="bi bi-box-arrow-in-up"></i> ' + lang('打开开始菜单', 'winx.openmenu'), `$('#start-btn').addClass('show');
                 if($('#search-win').hasClass('show')){$('#search-btn').removeClass('show');
                 $('#search-win').removeClass('show');setTimeout(() => {$('#search-win').removeClass('show-begin');
                 }, 200);}$('#start-menu').addClass('show-begin');setTimeout(() => {$('#start-menu').addClass('show');
@@ -479,22 +491,22 @@ const cms = {
         ['<i class="bi bi-gear"></i> ' + lang('设置', 'setting.name'), 'openapp(\'setting\')'],
         ['<i class="bi bi-terminal"></i> ' + lang('运行', 'run.name'), 'openapp(\'run\')'],
         ['<i class="bi bi-folder2-open"></i> ' + lang('文件资源管理器', 'explorer.name'), 'openapp(\'explorer\')'],
-        ['<i class="bi bi-search"></i> 搜索', `$('#search-btn').addClass('show');hide_startmenu();
+        ['<i class="bi bi-search"></i> ' + lang('搜索', 'search'), `$('#search-btn').addClass('show');hide_startmenu();
         $('#search-win').addClass('show-begin');setTimeout(() => {$('#search-win').addClass('show');
         $('#search-input').focus();}, 0);`],
         '<hr>',
-        ['<i class="bi bi-power"></i> 关机', 'window.location=\'shutdown.html\''],
-        ['<i class="bi bi-arrow-counterclockwise"></i> 重启', 'window.location=\'reload.html\''],
+        ['<i class="bi bi-power"></i> ' + lang('关机', 'shutdown'), 'window.location=\'shutdown.html\''],
+        ['<i class="bi bi-arrow-counterclockwise"></i> ' + lang('重启', 'restart'), 'window.location=\'reload.html\''],
     ],
     'smapp': [
         arg => {
             return ['<i class="bi bi-window"></i> ' + lang('打开', 'open'), `openapp('${arg[0]}');hide_startmenu();`];
         },
         arg => {
-            return ['<i class="bi bi-link-45deg"></i> 在桌面创建链接', 'var s=`<div class=\'b\' ondblclick=openapp(\'' + arg[0] + '\')  ontouchstart=openapp(\'' + arg[0] + '\') appname=\'' + arg[0] + '\'><img src=\'icon/' + geticon(arg[0]) + '\'><p>' + arg[1] + '</p></div>`;$(\'#desktop\').append(s);desktopItem[desktopItem.length]=s;addMenu();saveDesktop();'];
+            return ['<i class="bi bi-link-45deg"></i> ' + lang('在桌面创建链接', 'smapp.createlink'), 'var s=`<div class=\'b\' ondblclick=openapp(\'' + arg[0] + '\')  ontouchstart=openapp(\'' + arg[0] + '\') appname=\'' + arg[0] + '\'><img src=\'icon/' + geticon(arg[0]) + '\'><p>' + arg[1] + '</p></div>`;$(\'#desktop\').append(s);desktopItem[desktopItem.length]=s;addMenu();saveDesktop();'];
         },
         arg => {
-            return ['<i class="bi bi-x"></i> 取消固定', `$('#startmenu-r>.pinned>.apps>.sm-app.${arg[0]}').remove()`];
+            return ['<i class="bi bi-x"></i> ' + lang('取消固定', 'smapp.unpin'), `$('#startmenu-r>.pinned>.apps>.sm-app.${arg[0]}').remove()`];
         }
     ],
     'smlapp': [
@@ -502,24 +514,24 @@ const cms = {
             return ['<i class="bi bi-window"></i> ' + lang('打开', 'open'), `openapp('${arg[0]}');hide_startmenu();`];
         },
         arg => {
-            return ['<i class="bi bi-link-45deg"></i> 在桌面创建链接', 'var s=`<div class=\'b\' ondblclick=openapp(\'' + arg[0] + '\')  ontouchstart=openapp(\'' + arg[0] + '\') appname=\'' + arg[0] + '\'><img src=\'icon/' + geticon(arg[0]) + '\'><p>' + arg[1] + '</p></div>`;$(\'#desktop\').append(s);desktopItem[desktopItem.length]=s;addMenu();saveDesktop();'];
+            return ['<i class="bi bi-link-45deg"></i> ' + lang('在桌面创建链接', 'smapp.createlink'), 'var s=`<div class=\'b\' ondblclick=openapp(\'' + arg[0] + '\')  ontouchstart=openapp(\'' + arg[0] + '\') appname=\'' + arg[0] + '\'><img src=\'icon/' + geticon(arg[0]) + '\'><p>' + arg[1] + '</p></div>`;$(\'#desktop\').append(s);desktopItem[desktopItem.length]=s;addMenu();saveDesktop();'];
         },
         arg => {
-            return ['<i class="bi bi-pin-angle"></i> 固定到开始菜单', 'pinapp(\'' + arg[0] + '\', \'' + arg[1] + '\', \'openapp(&quot;' + arg[0] + '&quot;);hide_startmenu();\')'];
+            return ['<i class="bi bi-pin-angle"></i> ' + lang('固定到开始菜单', 'smlapp.pinstart'), 'pinapp(\'' + arg[0] + '\', \'' + arg[1] + '\', \'openapp(&quot;' + arg[0] + '&quot;);hide_startmenu();\')'];
         }
     ],
     'msgupdate': [
-        ['<i class="bi bi-layout-text-window-reverse"></i> 查看详细', `openapp('about');if($('.window.about').hasClass('min'))
+        ['<i class="bi bi-layout-text-window-reverse"></i> ' + lang('查看详细', 'msgupdate.details'), `openapp('about');if($('.window.about').hasClass('min'))
         minwin('about');apps.about.page('update');
         $('#win-about>.update.show>div>details:first-child').attr('open','open')`],
-        ['<i class="bi bi-box-arrow-right"></i> 关闭', '$(\'.msg.update\').removeClass(\'show\')']
+        ['<i class="bi bi-box-arrow-right"></i> ' + lang('关闭', 'close'), '$(\'.msg.update\').removeClass(\'show\')']
     ],
     'explorer.folder': [
         arg => {
             return ['<i class="bi bi-folder2-open"></i> ' + lang('打开', 'open'), `apps.explorer.goto('${arg}')`];
         },
         arg => {
-            return ['<i class="bi bi-arrow-up-right-square"></i> 在新标签页中打开', `apps.explorer.newtab('${arg}');`];
+            return ['<i class="bi bi-arrow-up-right-square"></i> ' + lang('在新标签页中打开', 'explorer.newtab'), `apps.explorer.newtab('${arg}');`];
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
@@ -528,17 +540,17 @@ const cms = {
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-files"></i> 复制', `apps.explorer.copy_or_cut('${arg}','copy')`];
+                return ['<i class="bi bi-files"></i> ' + lang('复制', 'copy'), `apps.explorer.copy_or_cut('${arg}','copy')`];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-scissors"></i> 剪切', `apps.explorer.copy_or_cut('${arg}','cut')`];
+                return ['<i class="bi bi-scissors"></i> ' + lang('剪切', 'cut'), `apps.explorer.copy_or_cut('${arg}','cut')`];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-input-cursor-text"></i> 重命名', `apps.explorer.rename('${arg}')`];
+                return ['<i class="bi bi-input-cursor-text"></i> ' + lang('重命名', 'rename'), `apps.explorer.rename('${arg}')`];
             return 'null';
         }
     ],
@@ -567,66 +579,66 @@ const cms = {
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text')[0].innerHTML != '此电脑')
-                return ['<i class="bi bi-files"></i> 复制', `apps.explorer.copy_or_cut('${arg}','copy')`];
+                return ['<i class="bi bi-files"></i> ' + lang('复制', 'copy'), `apps.explorer.copy_or_cut('${arg}','copy')`];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-scissors"></i> 剪切', `apps.explorer.copy_or_cut('${arg}','cut')`];
+                return ['<i class="bi bi-scissors"></i> ' + lang('剪切', 'cut'), `apps.explorer.copy_or_cut('${arg}','cut')`];
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-input-cursor-text"></i> 重命名', `apps.explorer.rename('${arg}')`];
+                return ['<i class="bi bi-input-cursor-text"></i> ' + lang('重命名', 'rename'), `apps.explorer.rename('${arg}')`];
             return 'null';
         }
     ],
     'explorer.content': [
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-file-earmark-plus"></i> 新建文件', 'apps.explorer.add($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文本文档.txt\')'];
+                return ['<i class="bi bi-file-earmark-plus"></i> ' + lang('新建文件', 'explorer.newfile'), 'apps.explorer.add($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文本文档.txt\')'];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-folder-plus"></i> 新建文件夹', 'apps.explorer.add($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文件夹\',type=\'files\')'];
+                return ['<i class="bi bi-folder-plus"></i> ' + lang('新建文件夹', 'explorer.newfolder'), 'apps.explorer.add($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文件夹\',type=\'files\')'];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-file-earmark-arrow-down"></i> 粘贴', 'apps.explorer.paste($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文件夹\',type=\'files\')'];
+                return ['<i class="bi bi-file-earmark-arrow-down"></i> ' + lang('粘贴', 'explorer.paste'), 'apps.explorer.paste($(\'#win-explorer>.path>.tit\')[0].dataset.path,\'新建文件夹\',type=\'files\')'];
             return 'null';
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length > 1)
-                return ['<i class="bi bi-arrow-clockwise"></i> 刷新', 'apps.explorer.goto($(\'#win-explorer>.path>.tit\')[0].dataset.path, false)'];
-            return ['<i class="bi bi-arrow-clockwise"></i> 刷新', 'apps.explorer.reset()'];
+                return ['<i class="bi bi-arrow-clockwise"></i> ' + lang('刷新', 'refresh'), 'apps.explorer.goto($(\'#win-explorer>.path>.tit\')[0].dataset.path, false)'];
+            return ['<i class="bi bi-arrow-clockwise"></i> ' + lang('刷新', 'refresh'), 'apps.explorer.reset()'];
         },
         arg => {
             if ($('#win-explorer>.path>.tit>.path>div.text').length <= 1 && apps.explorer.fsApiSupported)
-                return ['<i class="bi bi-usb-drive"></i> 挂载本地文件夹', 'apps.explorer.mountDrive()'];
+                return ['<i class="bi bi-usb-drive"></i> ' + lang('挂载本地文件夹', 'explorer.mount'), 'apps.explorer.mountDrive()'];
             return 'null';
         }
     ],
     'explorer.mounted': [
-        arg => ['<i class="bi bi-folder2-open"></i> 打开', `apps.explorer.goto('${arg}')`],
-        arg => ['<i class="bi bi-eject"></i> 卸载', `apps.explorer.unmountDrive('${arg}')`]
+        arg => ['<i class="bi bi-folder2-open"></i> ' + lang('打开', 'open'), `apps.explorer.goto('${arg}')`],
+        arg => ['<i class="bi bi-eject"></i> ' + lang('卸载', 'explorer.unmount'), `apps.explorer.unmountDrive('${arg}')`]
     ],
     'explorer.tab': [
         arg => {
-            return ['<i class="bi bi-x"></i> 关闭标签页', `m_tab.close('explorer',${arg})`];
+            return ['<i class="bi bi-x"></i> ' + lang('关闭标签页', 'tab.close'), `m_tab.close('explorer',${arg})`];
         }
     ],
     'edge.tab': [
         arg => {
-            return ['<i class="bi bi-pencil-square"></i> 命名标签页', `apps.edge.c_rename(${arg})`];
+            return ['<i class="bi bi-pencil-square"></i> ' + lang('命名标签页', 'edge.renameTab'), `apps.edge.c_rename(${arg})`];
         },
         arg => {
-            return ['<i class="bi bi-x"></i> 关闭标签页', `m_tab.close('edge',${arg})`];
+            return ['<i class="bi bi-x"></i> ' + lang('关闭标签页', 'tab.close'), `m_tab.close('edge',${arg})`];
         }
     ],
     'taskmgr.processes': [
         arg => {
-            return ['<i class="bi bi-x"></i> 结束任务', `apps.taskmgr.taskkill('${arg}')`];
+            return ['<i class="bi bi-x"></i> ' + lang('结束任务', 'taskmgr.endtask'), `apps.taskmgr.taskkill('${arg}')`];
         }
     ]
 };
@@ -807,6 +819,19 @@ function hidedp(force = false) {
     }, 100);
 }
 // 悬停提示
+// Tooltip translation mapping: Chinese text -> translation key
+const tooltipMap = {
+    '更多': 'tooltip.more',
+    '移动': 'tooltip.move',
+    '添加到任务栏': 'tooltip.addtotb',
+    '添加到桌面': 'tooltip.addtodt',
+    '删除': 'tooltip.delete',
+    '打开应用': 'tooltip.openapp',
+    '切换监视器类型': 'tooltip.switchmonitor',
+    '状态监测': 'tooltip.status',
+    '云智 API 官网': 'tooltip.yunzhi',
+    '在浏览器新窗口打开链接': 'tooltip.opennewtab'
+};
 document.querySelectorAll('*[win12_title]:not(.notip)').forEach(a => {
     a.addEventListener('mouseenter', showdescp);
     a.addEventListener('mouseleave', hidedescp);
@@ -820,7 +845,9 @@ function showdescp(e) {
         $(e.target).attr('data-descp', 'show');
         $('#descp').css('left', e.clientX + 15);
         $('#descp').css('top', e.clientY + 20);
-        $('#descp').text($(e.target).attr('win12_title'));
+        const raw = $(e.target).attr('win12_title');
+        const key = tooltipMap[raw];
+        $('#descp').text(key ? lang(raw, key) : raw);
         $('#descp').addClass('show-begin');
         setTimeout(() => {
             if (e.clientY + $('#descp')[0].offsetHeight + 20 >= $('html')[0].offsetHeight) {
@@ -872,16 +899,16 @@ const nts = {
         ]
     },
     'widgets': {
-        cnt: `
+        get cnt() { return `
             <p class="tit">${lang('添加小组件', 'nts.addwg')}</p>
             <list class="new">
                 <a class="a" onclick="closenotice(); widgets.widgets.add('calc');">${lang('计算器', 'calc.name')}</a>
                 <a class="a" onclick="closenotice(); widgets.widgets.add('weather');">${lang('天气', 'nts.addwg.weather')}</a>
                 <a class="a" onclick="closenotice(); widgets.widgets.add('monitor');">${lang('系统性能监视器', 'nts.addwg.monitor')}</a>
-            </list>`,
-        btn: [
+            </list>`; },
+        get btn() { return [
             { type: 'cancel', text: lang('取消', 'cancel'), js: 'closenotice();' }
-        ]
+        ]; }
     },
     'ZeroDivision': {//计算器报错窗口
         // 甚至还报错我真的哭死，直接输入框显示 error 啥的不就完了。。
@@ -900,39 +927,39 @@ const nts = {
         ]
     },
     'widgets.monitor': {
-        cnt: `
-        <p class="tit">切换监视器类型</p>
+        get cnt() { return `
+        <p class="tit">${lang('切换监视器类型', 'nts.monitor.switch')}</p>
         <list class="new">
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'cpu';">CPU 利用率</a>
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'memory';">内存使用率</a>
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'disk';">磁盘活动时间</a>
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'wifi-receive';">网络吞吐量 - 接收</a>
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'wifi-send';">网络吞吐量 - 发送</a>
-            <a class="a" onclick="closenotice(); widgets.monitor.type = 'gpu';">GPU 利用率</a>
-        </list>`,
-        btn: [
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'cpu';">${lang('CPU 利用率', 'widget.cpu-usage')}</a>
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'memory';">${lang('内存使用率', 'widget.memory-usage')}</a>
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'disk';">${lang('磁盘活动时间', 'widget.disk-activity')}</a>
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'wifi-receive';">${lang('网络吞吐量 - 接收', 'widget.network-receive')}</a>
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'wifi-send';">${lang('网络吞吐量 - 发送', 'widget.network-send')}</a>
+            <a class="a" onclick="closenotice(); widgets.monitor.type = 'gpu';">${lang('GPU 利用率', 'widget.gpu-usage')}</a>
+        </list>`; },
+        get btn() { return [
             { type: 'cancel', text: lang('取消', 'cancel'), js: 'closenotice();' }
-        ]
+        ]; }
     },
     'widgets.desktop': {
-        cnt: `
-            <p class="tit">添加桌面小组件</p>
+        get cnt() { return `
+            <p class="tit">${lang('添加桌面小组件', 'nts.desktop.addwg')}</p>
             <list class="new">
-                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('calc');">计算器</a>
-                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('weather');">天气</a>
-                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('monitor');">系统性能监视器</a>
-            </list>`,
-        btn: [
+                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('calc');">${lang('计算器', 'calc.name')}</a>
+                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('weather');">${lang('天气', 'nts.addwg.weather')}</a>
+                <a class="a" onclick="closenotice(); widgets.widgets.addToDesktop('monitor');">${lang('系统性能监视器', 'nts.addwg.monitor')}</a>
+            </list>`; },
+        get btn() { return [
             { type: 'cancel', text: lang('取消', 'cancel'), js: 'closenotice();' }
-        ]
+        ]; }
     },
     'widgets.news.source': {
-        cnt: `
-            <p class="tit">切换新闻源</p>
+        get cnt() { return `
+            <p class="tit">${lang('切换新闻源', 'news.switch-source')}</p>
             <list class="new">
-                新闻源未加载，请检查网络连接
-            </list>`,
-        btn: [{ type: 'cancel', text: lang('取消', 'cancel'), js: 'closenotice();' }],
+                ${lang('新闻源未加载，请检查网络连接', 'nts.newssource.loading')}
+            </list>`; },
+        get btn() { return [{ type: 'cancel', text: lang('取消', 'cancel'), js: 'closenotice();' }]; },
     },
     'duplication file name': {
         cnt: `
@@ -1513,7 +1540,7 @@ OS 版本：12.0.39035.7324
 OS 制造商：Microsoft Corporation
 OS 配置：主要工作站
 OS 构建类型：Multiprocessor Free
-注册的所有人：${localStorage.getItem('win12_user') || 'Web User'}
+注册的所有人：Web User
 注册的组织：Web Organization
 产品 ID:               12345-67890-09876-54321
 初始安装日期：         ${d.toLocaleDateString()}
@@ -2077,8 +2104,9 @@ let da = new Date();
 const date = {
     'zh-CN': `星期${['日', '一', '二', '三', '四', '五', '六'][da.getDay()]}, ${da.getFullYear()}年${(da.getMonth() + 1).toString().padStart(2, '0')}月${da.getDate().toString().padStart(2, '0')}日`,
     'zh-TW': `星期${['日', '一', '二', '三', '四', '五', '六'][da.getDay()]}, ${da.getFullYear()}年${(da.getMonth() + 1).toString().padStart(2, '0')}月${da.getDate().toString().padStart(2, '0')}日`,
-    en: `${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][da.getDay()]}, ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][da.getMonth()]} ${da.getDate().toString().padStart(2, '0')}, ${da.getFullYear()}`
-}[langcode];
+    en: `${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][da.getDay()]}, ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][da.getMonth()]} ${da.getDate().toString().padStart(2, '0')}, ${da.getFullYear()}`,
+    id: `${['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][da.getDay()]}, ${da.getDate().toString().padStart(2, '0')} ${['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'][da.getMonth()]} ${da.getFullYear()}`
+}[langcode] || `${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][da.getDay()]}, ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][da.getMonth()]} ${da.getDate().toString().padStart(2, '0')}, ${da.getFullYear()}`;
 
 $('#startmenu-r>.row1>.tool>.date').text(date);
 $('.dock.date>.date').text(`${da.getFullYear()}/${(da.getMonth() + 1).toString().padStart(2, '0')}/${da.getDate().toString().padStart(2, '0')}`);
@@ -2580,10 +2608,6 @@ function setIcon() {
     <div class="b" ondblclick="openapp('setting');" ontouchstart="openapp('setting');" oncontextmenu="return showcm(event,'desktop.icon',['setting',-1]);" appname="setting">
         <img src="icon/setting.svg">
         <p>${lang('设置', 'setting.name')}</p>
-    </div>
-    <div class="b" ondblclick="openapp('about');" ontouchstart="openapp('about');" oncontextmenu="return showcm(event,'desktop.icon',['about',-1]);" appname="about">
-        <img src="icon/about.svg">
-        <p>${getAboutAppTitle()}</p>
     </div>
     <div class="b" ondblclick="openapp('edge');" ontouchstart="openapp('edge');" oncontextmenu="return showcm(event,'desktop.icon',['edge',-1]);" appname="edge">
         <img src="icon/edge.svg">
