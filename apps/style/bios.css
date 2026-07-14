@@ -1,0 +1,279 @@
+@font-face {
+    font-family: 'dos';
+    src: url(../../fonts/dos.ttf);
+}
+
+* {
+    font-family: 'dos', monospace, Courier;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #0100a2;
+    color: #aaaaaa;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header styles */
+header {
+    width: 100%;
+    background-color: #4ba7a8;
+    color: #0100a2;
+    padding: 6px 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+nav.pages {
+    background-color: #0100a2;
+    display: flex;
+    border-bottom: 2px solid #aaaaaa;
+    padding: 4px 10px 0 10px;
+}
+
+.tab {
+    padding: 6px 18px;
+    color: #aaaaaa;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+}
+
+.tab.foc {
+    color: #ffffff !important;
+}
+
+.tab.show {
+    color: #0100a2;
+    background-color: #aaaaaa;
+}
+
+/* Page body split-screen layout */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 90px); /* Adjusting for header and footer */
+    padding: 10px;
+    gap: 10px;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.page.show {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.settings-col {
+    flex: 2;
+    border: 2px solid #aaaaaa;
+    padding: 15px;
+    background-color: #0100a2;
+    overflow-y: auto;
+}
+
+.help-col {
+    flex: 1;
+    border: 2px solid #aaaaaa;
+    padding: 15px;
+    background-color: #0100a2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.help-title {
+    color: #ffffff;
+    border-bottom: 2px solid #aaaaaa;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.help-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+/* Grid & Items styling */
+.table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.row-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    width: 100%;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.row-item.focused-row {
+    background-color: #aaaaaa;
+    color: #0100a2 !important;
+}
+
+.row-item.focused-row .option {
+    color: #0100a2 !important;
+}
+
+.row-item.section-header {
+    color: #fcfc54;
+    font-weight: bold;
+    padding: 8px 0;
+    margin-top: 10px;
+    border-bottom: 1px dashed #aaaaaa;
+    pointer-events: none;
+}
+
+.row-item .label {
+    flex: 1;
+}
+
+.row-item .value {
+    font-weight: bold;
+    min-width: 160px;
+    text-align: right;
+}
+
+.option {
+    color: #ffffff;
+    display: inline-block;
+}
+
+/* Exit Options */
+.exit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.exit-item {
+    padding: 10px;
+    border-radius: 2px;
+    color: #ffffff;
+}
+
+.exit-item.focused-row {
+    background-color: #aaaaaa;
+    color: #0100a2 !important;
+}
+
+/* Confirm Dialog Styles */
+#confirmContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+#exit_confirm {
+    width: 450px;
+    background-color: #aaaaaa;
+    border: 4px solid #ffffff;
+    box-shadow: rgb(0, 0, 0) 10px 10px 0px 0px;
+    padding: 4px;
+}
+
+#confirm {
+    border: 2px solid #000000;
+    padding: 20px;
+    text-align: center;
+    color: #0100a2;
+}
+
+#confirm-tit {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.confirm-button {
+    padding: 6px 16px;
+    border: 2px solid #0100a2;
+    background-color: #aaaaaa;
+    color: #0100a2;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.confirm-button.selected-btn {
+    background-color: #0100a2;
+    color: #ffffff !important;
+}
+
+/* Footer Instructions */
+footer {
+    width: 100%;
+    background-color: #4ba7a8;
+    color: #0100a2;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    border-top: 2px solid #aaaaaa;
+}
+
+.footer-keys {
+    display: flex;
+    gap: 15px;
+}
+
+.key-label {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #0100a2;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-right: 4px;
+}
+
+/* Special styles for editing Date/Time values */
+.editing-field {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 2px 6px;
+    border: 1px solid #0100a2;
+}

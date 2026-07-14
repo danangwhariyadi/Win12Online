@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows OOBE Setup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./pwa/logo.png" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #120e2b, #1d1b3c, #10294c, #090616);
+            background-size: 400% 400%;
+            animation: fluidBg 20s ease infinite;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        @keyframes fluidBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism scrollbars */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 99px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Custom toggle switch style */
+        .switch-input:checked ~ .switch-dot {
+            transform: translateX(100%);
+            background-color: #ffffff;
+        }
+        .switch-input:checked ~ .switch-bg {
+            background-color: #6366f1;
+        }
+
+        /* Ambient floating light orbs */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-40px) scale(1.1); }
+        }
+
+        /* Hi screen smooth text transitions */
+        .hi-text {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        }
+        .hi-text.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center relative">
+    
+    <!-- Decorative glow background elements -->
+    <div class="floating-orb bg-indigo-500 w-[450px] h-[450px] top-[10%] left-[10%]"></div>
+    <div class="floating-orb bg-pink-500 w-[550px] h-[550px] bottom-[10%] right-[10%] animation-delay-2000" style="animation-duration: 16s;"></div>
+
+    <!-- OOBE Primary Interface Card -->
+    <div id="oobe-card" class="relative z-10 w-[840px] h-[540px] bg-white/10 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl flex flex-col justify-between overflow-hidden text-white/90">
+        
+        <!-- OOBE Main Stage Layout -->
+        <div class="flex-1 flex overflow-hidden">
+            
+            <!-- Left Panel (Conceptual Branding Image Card / Context Logo Panel) -->
+            <div class="w-[340px] bg-white/5 border-r border-white/5 p-10 flex flex-col justify-between">
+                <div>
+                    <img src="./icon/logo.svg" alt="Win12" class="w-12 h-12 mb-8 drop-shadow-lg">
+                    <h1 class="text-xl font-light leading-snug text-white">Let's set up <br>your PC workspace</h1>
+                    <p class="text-xs text-white/50 mt-3">Follow these quick wizard pages to finalize your system deployment configurations.</p>
+                </div>
+                <div class="text-[10px] text-white/30 tracking-wider uppercase">
+                    Windows 12 Online Edition
+                </div>
+            </div>
+
+            <!-- Right Panel (The Interactive Stages Panel) -->
+            <div class="flex-1 p-10 flex flex-col justify-between overflow-hidden">
+                <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                    
+                    <!-- Stage 1: Region Selector -->
+                    <div id="stage-region" class="oobe-stage flex flex-col gap-4">
+                        <div>
+                            <h2 class="text-2xl font-light text-white mb-1">Is this the right country or region?</h2>
+                            <p class="text-xs text-white/50">This helps us customize date formats, regional servers, and default layouts.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl bg-black/20 overflow-hidden max-h-[240px] overflow-y-auto custom-scrollbar mt-3">
+                            <div class="divide-y divide-white/5 text-sm" id="region-list">
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3 bg-indigo-600/20 active-region-row" onclick="selectRegion(this, 'United States')">
+                                    <span class="text-lg">🇺🇸</span> <span>United States</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3" onclick="selectRegion(this, 'China')">
+                                    <span class="text-lg">🇨🇳</span> <span>China</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3" onclick="selectRegion(this, 'United Kingdom')">
+                                    <span class="text-lg">🇬🇧</span> <span>United Kingdom</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3" onclick="selectRegion(this, 'France')">
+                                    <span class="text-lg">🇫🇷</span> <span>France</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3" onclick="selectRegion(this, 'Germany')">
+                                    <span class="text-lg">🇩🇪</span> <span>Germany</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 flex items-center gap-3" onclick="selectRegion(this, 'Japan')">
+                                    <span class="text-lg">🇯🇵</span> <span>Japan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selected-region" value="United States">
+                    </div>
+
+                    <!-- Stage 2: Keyboard Layout -->
+                    <div id="stage-keyboard" class="oobe-stage hidden flex flex-col gap-4">
+                        <div>
+                            <h2 class="text-2xl font-light text-white mb-1">Is this the right keyboard layout or input method?</h2>
+                            <p class="text-xs text-white/50">Ensure standard symbol bindings match your physical key labels.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl bg-black/20 overflow-hidden max-h-[220px] overflow-y-auto custom-scrollbar mt-3">
+                            <div class="divide-y divide-white/5 text-sm" id="keyboard-list">
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5 bg-indigo-600/20 active-kb-row" onclick="selectKeyboard(this, 'US')">
+                                    <span>US Layout</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5" onclick="selectKeyboard(this, 'UK')">
+                                    <span>United Kingdom Layout</span>
+                                </div>
+                                <div class="px-4 py-3 cursor-pointer hover:bg-white/5" onclick="selectKeyboard(this, 'Dvorak')">
+                                    <span>United States-Dvorak</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selected-keyboard" value="US">
+                    </div>
+
+                    <!-- Stage 2b: Keyboard Bypass Step -->
+                    <div id="stage-keyboard-second" class="oobe-stage hidden flex flex-col gap-6 justify-center h-full">
+                        <div class="text-center py-6">
+                            <svg class="w-16 h-16 text-indigo-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                            <h2 class="text-2xl font-light text-white mb-2">Want to add a second keyboard layout?</h2>
+                            <p class="text-xs text-white/50 max-w-sm mx-auto">This is helpful if you type in multiple languages or need specific functional layouts.</p>
+                        </div>
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="skipSecondKeyboard()" class="px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm border border-white/5 transition-colors">Skip</button>
+                            <button onclick="alert('Standard multi-layout settings loaded.')" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm transition-colors">Add layout</button>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3: Network Loader Check -->
+                    <div id="stage-network" class="oobe-stage hidden flex flex-col justify-center items-center gap-6 h-full text-center">
+                        <div class="w-12 h-12 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+                        <div>
+                            <h2 class="text-xl font-light text-white mb-1">Let's connect you to a network</h2>
+                            <p class="text-xs text-white/50 max-w-xs mx-auto" id="network-status-text">Searching for active wireless connection adapters...</p>
+                        </div>
+                        <div class="text-[11px] text-white/30 font-mono" id="network-log">Initializing WiFi_6_Core_Engine...</div>
+                    </div>
+
+                    <!-- Stage 4: Device Naming -->
+                    <div id="stage-device-name" class="oobe-stage hidden flex flex-col gap-5">
+                        <div>
+                            <h2 class="text-2xl font-light text-white mb-1">Name your device</h2>
+                            <p class="text-xs text-white/50">Give it a custom name to make it easy to identify on other network nodes.</p>
+                        </div>
+                        <div class="flex flex-col gap-3 my-2">
+                            <label class="text-xs text-white/70">Computer Name</label>
+                            <input type="text" id="device-name-input" placeholder="WIN12-WEB-PC" maxlength="15" class="bg-black/20 border border-white/15 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-indigo-500 uppercase tracking-wider font-mono">
+                            <span id="name-validation-warning" class="text-xs text-rose-400 hidden">Use only letters, numbers, and hyphens (max 15 characters).</span>
+                        </div>
+                        <p class="text-[11px] text-white/40">Naming your PC is useful for network discovery and device pairing. You can also skip this step to use a default generated hostname.</p>
+                    </div>
+
+                    <!-- Stage 5: User Account Setup -->
+                    <div id="stage-account" class="oobe-stage hidden flex flex-col gap-4">
+                        <div>
+                            <h2 class="text-2xl font-light text-white mb-1">Who's going to use this device?</h2>
+                            <p class="text-xs text-white/50">Create a secure local profile to customize desktop files and layouts.</p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-4 mt-2">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs text-white/70">Enter Username</label>
+                                <input type="text" id="username-input" placeholder="e.g. Alexis" class="bg-black/20 border border-white/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 font-medium text-white">
+                                <span id="username-validation-err" class="text-xs text-rose-400 hidden">Please enter a valid username.</span>
+                            </div>
+                            
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs text-white/70">Create Local Password (Optional)</label>
+                                <input type="password" id="password-input" placeholder="Password (leave empty for none)" class="bg-black/20 border border-white/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 font-mono">
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-white/40 mt-1">If password is provided, you will need to authenticate on startup locks. Leave blank for instant desktop boots.</p>
+                    </div>
+
+                    <!-- Stage 6: Privacy Toggle Dashboard -->
+                    <div id="stage-privacy" class="oobe-stage hidden flex flex-col gap-4">
+                        <div>
+                            <h2 class="text-xl font-light text-white mb-1">Choose privacy settings for your device</h2>
+                            <p class="text-xs text-white/50">Microsoft and Win12OL value privacy. Review and toggle your options.</p>
+                        </div>
+
+                        <!-- Grid list of toggle switches -->
+                        <div class="grid grid-cols-2 gap-4 mt-2 max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
+                            
+                            <!-- Location -->
+                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-start gap-3">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-semibold text-white">Location Services</h4>
+                                    <p class="text-[10px] text-white/40 leading-tight mt-0.5">Let maps or widgets use locations.</p>
+                                </div>
+                                <label class="relative flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer switch-input">
+                                    <div class="w-9 h-5 bg-white/10 rounded-full switch-bg transition-colors"></div>
+                                    <div class="absolute left-0.5 top-0.5 bg-white/60 w-4 h-4 rounded-full transition-transform switch-dot"></div>
+                                </label>
+                            </div>
+
+                            <!-- Find my Device -->
+                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-start gap-3">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-semibold text-white">Find My Device</h4>
+                                    <p class="text-[10px] text-white/40 leading-tight mt-0.5">Track and locate this workstation node.</p>
+                                </div>
+                                <label class="relative flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer switch-input">
+                                    <div class="w-9 h-5 bg-white/10 rounded-full switch-bg transition-colors"></div>
+                                    <div class="absolute left-0.5 top-0.5 bg-white/60 w-4 h-4 rounded-full transition-transform switch-dot"></div>
+                                </label>
+                            </div>
+
+                            <!-- Diagnostic Data -->
+                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-start gap-3">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-semibold text-white">Diagnostic Data</h4>
+                                    <p class="text-[10px] text-white/40 leading-tight mt-0.5">Send troubleshooting packages safely.</p>
+                                </div>
+                                <label class="relative flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer switch-input">
+                                    <div class="w-9 h-5 bg-white/10 rounded-full switch-bg transition-colors"></div>
+                                    <div class="absolute left-0.5 top-0.5 bg-white/60 w-4 h-4 rounded-full transition-transform switch-dot"></div>
+                                </label>
+                            </div>
+
+                            <!-- Inking & Typing -->
+                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-start gap-3">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-semibold text-white">Inking & Typing</h4>
+                                    <p class="text-[10px] text-white/40 leading-tight mt-0.5">Improve dictionaries, spelling suggestions.</p>
+                                </div>
+                                <label class="relative flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer switch-input">
+                                    <div class="w-9 h-5 bg-white/10 rounded-full switch-bg transition-colors"></div>
+                                    <div class="absolute left-0.5 top-0.5 bg-white/60 w-4 h-4 rounded-full transition-transform switch-dot"></div>
+                                </label>
+                            </div>
+
+                            <!-- Advertising ID -->
+                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-start gap-3 col-span-2">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-semibold text-white">Tailored Experiences & Advertising ID</h4>
+                                    <p class="text-[10px] text-white/40 leading-tight mt-0.5">Use personalized identifiers to provide custom hints, system notifications, or widgets suggestions inside starting dashboard panels.</p>
+                                </div>
+                                <label class="relative flex items-center cursor-pointer self-center">
+                                    <input type="checkbox" checked class="sr-only peer switch-input">
+                                    <div class="w-9 h-5 bg-white/10 rounded-full switch-bg transition-colors"></div>
+                                    <div class="absolute left-0.5 top-0.5 bg-white/60 w-4 h-4 rounded-full transition-transform switch-dot"></div>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- OOBE Card Bottom Navigation Bar -->
+                <div class="flex justify-between items-center pt-6 border-t border-white/5" id="oobe-footer">
+                    <span class="text-[11px] text-white/30" id="oobe-step-indicator">Step 1 of 6</span>
+                    <div class="flex gap-3">
+                        <button id="btn-back" onclick="goBack()" class="px-5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm transition-colors disabled:opacity-20 disabled:pointer-events-none" disabled>
+                            Back
+                        </button>
+                        <button id="btn-next" onclick="goNext()" class="px-6 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-medium transition-colors border border-white/10 shadow-md">
+                            Next
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Finalizing Full-Screen "Hi" Screen -->
+    <div id="hi-screen" class="hidden fixed inset-0 z-50 bg-black flex items-center justify-center text-center transition-all duration-1000">
+        <div class="flex flex-col items-center justify-center gap-2 max-w-lg px-6">
+            <!-- Wavy background lighting during Hi -->
+            <div class="absolute inset-0 z-0 bg-gradient-to-tr from-indigo-950 via-purple-950 to-blue-950 opacity-100 animate-pulse duration-[8000ms]"></div>
+            
+            <div class="relative z-10">
+                <div class="hi-text text-5xl font-light text-white mb-6" id="hi-t1">Hi.</div>
+                <div class="hi-text text-3xl font-light text-white/80 mb-4" id="hi-t2">We're getting things ready for you.</div>
+                <div class="hi-text text-xl font-light text-white/60 mb-2" id="hi-t3">This might take a few minutes.</div>
+                <div class="hi-text text-lg font-light text-indigo-400" id="hi-t4">Don't turn off your PC.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const stagesSequence = [
+            'stage-region',
+            'stage-keyboard',
+            'stage-keyboard-second',
+            'stage-network',
+            'stage-device-name',
+            'stage-account',
+            'stage-privacy'
+        ];
+
+        let currentStageIndex = 0;
+
+        function updateStageUI() {
+            // Hide all stages
+            document.querySelectorAll('.oobe-stage').forEach(s => s.classList.add('hidden'));
+
+            const activeStageId = stagesSequence[currentStageIndex];
+            document.getElementById(activeStageId).classList.remove('hidden');
+
+            // Handle back button disabled state
+            const backBtn = document.getElementById('btn-back');
+            backBtn.disabled = currentStageIndex === 0;
+
+            // Update step count indicator
+            const ind = document.getElementById('oobe-step-indicator');
+            // Skip counting stage-keyboard-second and stage-network as major numbered steps to keep it neat
+            let visibleStep = currentStageIndex + 1;
+            if (currentStageIndex > 2) visibleStep = currentStageIndex;
+            if (currentStageIndex > 3) visibleStep = currentStageIndex - 1;
+            
+            ind.innerText = `Step ${Math.max(1, Math.min(6, visibleStep))} of 6`;
+
+            // Specific controls
+            if (activeStageId === 'stage-network') {
+                document.getElementById('btn-next').disabled = true;
+                document.getElementById('btn-next').classList.add('opacity-40');
+                simulateNetworkCheck();
+            } else {
+                document.getElementById('btn-next').disabled = false;
+                document.getElementById('btn-next').classList.remove('opacity-40');
+            }
+        }
+
+        function goNext() {
+            const activeStageId = stagesSequence[currentStageIndex];
+
+            // Hostname validation
+            if (activeStageId === 'stage-device-name') {
+                const hostname = document.getElementById('device-name-input').value.trim();
+                const warning = document.getElementById('name-validation-warning');
+                
+                if (hostname !== "") {
+                    // Check standard hostname regex (alphanumeric and hyphens only, no start/end hyphens)
+                    const hostRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,13}[a-zA-Z0-9]$/;
+                    if (!hostRegex.test(hostname)) {
+                        warning.classList.remove('hidden');
+                        return; // Prevent advancement
+                    }
+                }
+                warning.classList.add('hidden');
+            }
+
+            // User Profile validation
+            if (activeStageId === 'stage-account') {
+                const user = document.getElementById('username-input').value.trim();
+                const warning = document.getElementById('username-validation-err');
+                if (user === "") {
+                    warning.classList.remove('hidden');
+                    return;
+                }
+                warning.classList.add('hidden');
+                
+                // Store username and password to LocalStorage
+                localStorage.setItem('win12_user', user);
+                const pwd = document.getElementById('password-input').value;
+                if (pwd !== "") {
+                    localStorage.setItem('win12_password', pwd);
+                } else {
+                    localStorage.removeItem('win12_password');
+                }
+            }
+
+            // Final stage finishes -> Trigger "Hi" screen animation
+            if (activeStageId === 'stage-privacy') {
+                // Register system as fully installed and OOBE finished
+                localStorage.setItem('win12_installed', 'true');
+                localStorage.removeItem('boot_device'); // Remove USB boot priority to boot normally hereafter
+                
+                launchHiFinalization();
+                return;
+            }
+
+            if (currentStageIndex < stagesSequence.length - 1) {
+                currentStageIndex++;
+                updateStageUI();
+            }
+        }
+
+        function goBack() {
+            if (currentStageIndex > 0) {
+                // If going back from network adapter check, skip to keyboard selector
+                if (stagesSequence[currentStageIndex] === 'stage-device-name') {
+                    currentStageIndex = stagesSequence.indexOf('stage-keyboard');
+                } else {
+                    currentStageIndex--;
+                }
+                updateStageUI();
+            }
+        }
+
+        // Region Selection mechanics
+        function selectRegion(elem, regionName) {
+            document.querySelectorAll('#region-list > div').forEach(row => {
+                row.classList.remove('bg-indigo-600/20', 'active-region-row');
+            });
+            elem.classList.add('bg-indigo-600/20', 'active-region-row');
+            document.getElementById('selected-region').value = regionName;
+        }
+
+        // Keyboard layout selection mechanics
+        function selectKeyboard(elem, layoutCode) {
+            document.querySelectorAll('#keyboard-list > div').forEach(row => {
+                row.classList.remove('bg-indigo-600/20', 'active-kb-row');
+            });
+            elem.classList.add('bg-indigo-600/20', 'active-kb-row');
+            document.getElementById('selected-keyboard').value = layoutCode;
+        }
+
+        function skipSecondKeyboard() {
+            currentStageIndex = stagesSequence.indexOf('stage-network');
+            updateStageUI();
+        }
+
+        // Simulate Network Adapter Scanning & Check
+        function simulateNetworkCheck() {
+            const statusText = document.getElementById('network-status-text');
+            const logText = document.getElementById('network-log');
+            
+            setTimeout(() => {
+                statusText.innerText = "Connecting to Microsoft cloud server...";
+                logText.innerText = "GET /v3/win12/bootstrap_handshake... [OK]";
+                
+                setTimeout(() => {
+                    statusText.innerText = "Applying critical post-installation updates...";
+                    logText.innerText = "Applying security update package KB503412... 100%";
+                    
+                    setTimeout(() => {
+                        // Move directly to next stage
+                        currentStageIndex = stagesSequence.indexOf('stage-device-name');
+                        updateStageUI();
+                    }, 1500);
+                    
+                }, 1500);
+                
+            }, 1500);
+        }
+
+        // Device name typing filter (allow only alphanumeric and hyphens)
+        document.getElementById('device-name-input').addEventListener('keypress', function (e) {
+            const char = String.fromCharCode(e.which);
+            const pattern = /[a-zA-Z0-9-]/;
+            if (!pattern.test(char)) {
+                e.preventDefault();
+            }
+        });
+
+        // Launch Hi Text transition sequences
+        function launchHiFinalization() {
+            // Hide the card
+            document.getElementById('oobe-card').classList.add('hidden');
+            
+            // Show hi screen
+            const hiScreen = document.getElementById('hi-screen');
+            hiScreen.classList.remove('hidden');
+
+            const text1 = document.getElementById('hi-t1');
+            const text2 = document.getElementById('hi-t2');
+            const text3 = document.getElementById('hi-t3');
+            const text4 = document.getElementById('hi-t4');
+
+            // 1. Hi
+            setTimeout(() => {
+                text1.classList.add('active');
+                
+                // Fade out Hi, fade in "Getting ready"
+                setTimeout(() => {
+                    text1.classList.remove('active');
+                    text1.classList.add('hidden');
+                    
+                    text2.classList.remove('hidden');
+                    setTimeout(() => text2.classList.add('active'), 100);
+                    
+                    // Fade out "Getting ready", fade in "This might take a few minutes"
+                    setTimeout(() => {
+                        text2.classList.remove('active');
+                        text2.classList.add('hidden');
+                        
+                        text3.classList.remove('hidden');
+                        setTimeout(() => text3.classList.add('active'), 100);
+                        
+                        // Fade out "This might take a few minutes", fade in "Don't turn off your PC"
+                        setTimeout(() => {
+                            text3.classList.remove('active');
+                            text3.classList.add('hidden');
+                            
+                            text4.classList.remove('hidden');
+                            setTimeout(() => text4.classList.add('active'), 100);
+                            
+                            // Exit OOBE into desktop.html!
+                            setTimeout(() => {
+                                hiScreen.classList.add('opacity-0');
+                                setTimeout(() => {
+                                    window.location.href = './desktop.html';
+                                }, 1200);
+                            }, 3000);
+
+                        }, 4000);
+
+                    }, 4000);
+
+                }, 2500);
+
+            }, 500);
+        }
+
+        // Launch UI
+        updateStageUI();
+    </script>
+</body>
+
+</html>

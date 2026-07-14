@@ -1,0 +1,13 @@
+{
+  "cpuHyperThreading": "Enabled",
+  "cpuTurboBoost": "Enabled",
+  "cpuCoreRatio": "Auto",
+  "memoryFrequency": "Auto",
+  "memoryTimingMode": "Auto",
+  "xmpProfile": "Disabled",
+  "tpmState": "Enabled",
+  "secureBoot": "Enabled",
+  "fastBoot": "Enabled",
+  "bootMode": "UEFI",
+  "bootPriority": "Hard Drive"
+}

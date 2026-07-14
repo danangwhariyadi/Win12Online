@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Setup</title>
+    <!-- Use Tailwind CSS for highly polished styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./pwa/logo.png" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
+        
+        * {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #2c1a5b 0%, #0d0a21 100%);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Ambient backdrop lights */
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Elegant scrollbar for license agreement and partition box */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center relative">
+    <!-- Background glow elements -->
+    <div class="glowing-orb bg-indigo-600 w-[500px] h-[500px] top-[-100px] left-[-100px]"></div>
+    <div class="glowing-orb bg-purple-600 w-[600px] h-[600px] bottom-[-150px] right-[-100px]"></div>
+    <div class="glowing-orb bg-pink-600 w-[400px] h-[400px] top-[20%] right-[10%]"></div>
+
+    <!-- Centered Setup Window -->
+    <div id="setup-window" class="relative z-10 w-[780px] h-[530px] bg-[#1a1829]/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl flex flex-col justify-between overflow-hidden text-white">
+        
+        <!-- Header Window Bar -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
+            <div class="flex items-center gap-3">
+                <img src="./icon/logo.svg" alt="Win12" class="w-6 h-6">
+                <span class="text-sm font-semibold tracking-wide text-white/90">Windows Setup</span>
+            </div>
+            <div class="flex gap-1">
+                <button class="w-7 h-7 flex items-center justify-center hover:bg-white/10 rounded-full text-white/75 transition-colors text-xs" onclick="window.close()">✕</button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 p-10 flex flex-col justify-center overflow-y-auto custom-scrollbar">
+            
+            <!-- Page 1: Language & Region -->
+            <div id="page-language" class="setup-page flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Install Windows</h2>
+                    <p class="text-sm text-white/60">Select your language, time, and keyboard preference.</p>
+                </div>
+                <div class="grid grid-cols-3 gap-6 my-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs text-white/70">Language to install</label>
+                        <select class="bg-[#242136] border border-white/15 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                            <option>English (United States)</option>
+                            <option>简体中文 (Chinese Simplified)</option>
+                            <option>繁體中文 (Chinese Traditional)</option>
+                            <option>Français (French)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs text-white/70">Time and currency format</label>
+                        <select class="bg-[#242136] border border-white/15 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                            <option>English (United States)</option>
+                            <option>Chinese (Simplified, China)</option>
+                            <option>French (France)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs text-white/70">Keyboard or input method</label>
+                        <select class="bg-[#242136] border border-white/15 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                            <option>US</option>
+                            <option>Microsoft Pinyin</option>
+                            <option>French AZERTY</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="text-xs text-white/40 mt-2">Before continuing, verify your keyboard and layout preferences to avoid issues during login.</p>
+            </div>
+
+            <!-- Page 2: Install Now Button -->
+            <div id="page-install-now" class="setup-page hidden flex flex-col items-center justify-center gap-10">
+                <div class="text-center">
+                    <img src="./icon/logo.svg" alt="Win12" class="w-20 h-20 mx-auto mb-6 opacity-90 animate-pulse">
+                    <h2 class="text-3xl font-light text-white mb-2">Windows 12 Online</h2>
+                    <p class="text-sm text-white/50">Ready to begin the operation system deployment?</p>
+                </div>
+                <div>
+                    <button onclick="goToPage('page-product-key')" class="px-10 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-lg shadow-lg hover:shadow-indigo-500/20 active:scale-[0.98] transition-all text-base border border-white/10">
+                        Install now
+                    </button>
+                </div>
+                <div class="flex gap-6 text-xs text-indigo-400">
+                    <a href="#" class="hover:underline" onclick="alert('Repair tools are fully simulated inside Windows Settings.')">Repair your computer</a>
+                </div>
+            </div>
+
+            <!-- Page 3: Product Key Activation -->
+            <div id="page-product-key" class="setup-page hidden flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Activate Windows</h2>
+                    <p class="text-sm text-white/60">If this is the first time installing Windows on this PC, enter your 25-character product key.</p>
+                </div>
+                
+                <div class="flex flex-col gap-3 my-4">
+                    <label class="text-xs text-white/70">Product Key (e.g. XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="product-key-input" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" maxlength="29" class="w-full bg-[#242136] border border-white/15 rounded px-4 py-2.5 text-base font-mono focus:outline-none focus:border-indigo-500 uppercase tracking-widest text-center">
+                    </div>
+                    <span id="key-validation" class="text-xs text-rose-400 hidden">Please enter a valid product key format.</span>
+                </div>
+
+                <div class="flex flex-col gap-4 mt-2">
+                    <p class="text-xs text-white/40">The product key is located on the box your copy of Windows came in, or on a card in the package. If you do not have a key, you can skip this step.</p>
+                    <div>
+                        <button onclick="goToPage('page-os-architecture')" class="text-sm text-indigo-400 hover:text-indigo-300 hover:underline">
+                            I don't have a product key
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Select OS Edition -->
+            <div id="page-os-architecture" class="setup-page hidden flex flex-col gap-5">
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Select the operating system you want to install</h2>
+                    <p class="text-sm text-white/60">Choose the license edition tailored to your computational requirements.</p>
+                </div>
+                <div class="border border-white/10 rounded-lg overflow-hidden bg-[#1e1c30]">
+                    <div class="grid grid-cols-1 divide-y divide-white/5 custom-scrollbar max-h-[220px] overflow-y-auto">
+                        <div class="os-row flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-white/5 active-os-row bg-indigo-600/25" onclick="selectOS(this, 'Win12 OL Home')">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-sm">Win12 OL Home</span>
+                                <span class="text-xs text-white/50">Designed for personal, light desktop computing.</span>
+                            </div>
+                            <span class="text-xs text-indigo-400 font-mono">x64 Edition</span>
+                        </div>
+                        <div class="os-row flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-white/5" onclick="selectOS(this, 'Win12 OL Pro')">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-sm">Win12 OL Pro</span>
+                                <span class="text-xs text-white/50">Premium workspace with hypervisor core extensions.</span>
+                            </div>
+                            <span class="text-xs text-indigo-400 font-mono">x64 Edition</span>
+                        </div>
+                        <div class="os-row flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-white/5" onclick="selectOS(this, 'Win12 OL Enterprise')">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-sm">Win12 OL Enterprise</span>
+                                <span class="text-xs text-white/50">Robust virtualization, advanced domain controllers.</span>
+                            </div>
+                            <span class="text-xs text-indigo-400 font-mono">x64 Edition</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="selected-os-edition" value="Win12 OL Home">
+            </div>
+
+            <!-- Page 5: Custom License Terms (EULA) -->
+            <div id="page-license" class="setup-page hidden flex flex-col gap-4">
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Applicable notices and license terms</h2>
+                    <p class="text-sm text-white/60">Please review the custom system terms agreements below.</p>
+                </div>
+                
+                <!-- Scrollable Terms Box -->
+                <div class="h-[180px] bg-[#1e1c30] border border-white/10 rounded-lg p-4 text-xs text-white/70 overflow-y-auto custom-scrollbar leading-relaxed">
+                    <p class="font-semibold text-sm text-white mb-2">MICROSOFT SOFTWARE LICENSE TERMS - WINDOWS 12 ONLINE</p>
+                    <p class="mb-4">These license terms are an agreement between you and Windows 12 Online Development Team. Please read them. They apply to the software named above, which includes the media on which you received it, if any.</p>
+                    <p class="font-semibold text-white mb-1">1. SCOPE OF LICENSE & VIRTUAL MEMORY</p>
+                    <p class="mb-4">The software is licensed, not sold. This agreement only gives you some rights to use the software. You may not exploit any features or run heavy mining programs inside the sandboxed web environment without explicit administrative consent.</p>
+                    <p class="font-semibold text-white mb-1">2. PRIVACY & TELEMETRY AGREEMENTS</p>
+                    <p class="mb-4">The software utilizes local browser storage (localStorage) to persist desktop icons, settings, wallpaper, and folders. We do not gather personal credentials. However, diagnostic packages might be simulated to provide full UI realism.</p>
+                    <p class="font-semibold text-white mb-1">3. NO WARRANTY</p>
+                    <p class="mb-2">The software is licensed "as-is." You bear the risk of using it. This simulator is built for educational, entertainment, and front-end architectural prototyping purposes.</p>
+                    <p class="text-indigo-400 font-medium">By selecting "I accept the license terms", you certify that you have read, comprehended, and fully complied with the conditions mentioned.</p>
+                </div>
+
+                <div class="flex items-center gap-3 py-2">
+                    <input type="checkbox" id="accept-terms-check" class="w-4 h-4 rounded border-white/20 bg-[#242136] text-indigo-600 focus:ring-0 cursor-pointer" onchange="toggleLicenseNext()">
+                    <label for="accept-terms-check" class="text-sm text-white/80 cursor-pointer select-none">I accept the license terms</label>
+                </div>
+            </div>
+
+            <!-- Page 6: Installation Type & Partition Utility -->
+            <div id="page-install-type" class="setup-page hidden flex flex-col gap-6">
+                <div class="flex flex-col gap-1">
+                    <h2 class="text-2xl font-light">Which type of installation do you want?</h2>
+                    <p class="text-sm text-white/60">Choose between automated upgrade or custom system allocations.</p>
+                </div>
+
+                <div id="type-selector-buttons" class="flex flex-col gap-4">
+                    <!-- Upgrade Option -->
+                    <button onclick="selectInstallType('upgrade')" class="flex flex-col items-start text-left p-5 bg-[#1e1c30] hover:bg-indigo-600/20 border border-white/10 rounded-lg group transition-all">
+                        <span class="font-medium text-indigo-400 group-hover:text-indigo-300">Upgrade: Install Windows and keep files, settings, and applications</span>
+                        <span class="text-xs text-white/50 mt-1">Files, settings, and applications are moved to Windows with this option. This option is only available when a supported version of Windows is already running on the computer.</span>
+                    </button>
+                    <!-- Custom Option -->
+                    <button onclick="selectInstallType('custom')" class="flex flex-col items-start text-left p-5 bg-[#1e1c30] hover:bg-indigo-600/20 border border-white/10 rounded-lg group transition-all">
+                        <span class="font-medium text-indigo-400 group-hover:text-indigo-300">Custom: Install Windows only (advanced)</span>
+                        <span class="text-xs text-white/50 mt-1">The files, settings, and applications aren't moved to Windows with this option. If you want to make changes to partitions and drives, start the computer by using the installation disc.</span>
+                    </button>
+                </div>
+
+                <!-- Custom Partition UI Screen (Initially Hidden) -->
+                <div id="custom-partition-ui" class="hidden flex flex-col gap-3">
+                    <div class="flex justify-between items-center">
+                        <p class="text-xs text-white/60">Where do you want to install Windows?</p>
+                        <span id="disk-style-label" class="text-[10px] text-white/50 bg-white/5 px-2 py-0.5 rounded border border-white/10 font-medium select-none font-mono">Style: GPT (UEFI)</span>
+                    </div>
+                    <div class="border border-white/10 rounded bg-[#1e1c30] overflow-hidden max-h-[190px] overflow-y-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs text-white/80 border-collapse">
+                            <thead>
+                                <tr class="bg-white/5 border-b border-white/10 select-none">
+                                    <th class="p-2 font-semibold">Name</th>
+                                    <th class="p-2 font-semibold w-24 text-right">Total Size</th>
+                                    <th class="p-2 font-semibold w-24 text-right">Free Space</th>
+                                    <th class="p-2 font-semibold w-28">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partition-table-body">
+                                <!-- Rendered dynamically by script -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Partition Operations Tool bar -->
+                    <div class="flex gap-5 text-xs text-white/60 py-1 select-none">
+                        <button id="part-btn-delete" class="flex items-center gap-1 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none" onclick="deleteSelectedPartition()">
+                            <span>🗑</span> Delete
+                        </button>
+                        <button id="part-btn-format" class="flex items-center gap-1 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none" onclick="formatSelectedPartition()">
+                            <span>🔄</span> Format
+                        </button>
+                        <button id="part-btn-extend" class="flex items-center gap-1 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none" onclick="showExtendPartitionForm()">
+                            <span>⊞</span> Extend
+                        </button>
+                        <button id="part-btn-new" class="flex items-center gap-1 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none" onclick="showNewPartitionForm()">
+                            <span>✨</span> New
+                        </button>
+                    </div>
+
+                    <!-- Size form for creating partition -->
+                    <div id="partition-size-form" class="hidden flex items-center gap-3 text-xs bg-white/5 p-2 rounded border border-white/10 mt-1">
+                        <span class="text-white/70">Size:</span>
+                        <input type="number" id="partition-size-input" class="bg-[#242136] border border-white/15 rounded px-2 py-1 w-24 text-white text-xs text-center focus:outline-none focus:border-indigo-500 font-mono">
+                        <span class="text-white/50">MB</span>
+                        <button onclick="applyNewPartition()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium transition-colors">Apply</button>
+                        <button onclick="hidePartitionForms()" class="px-3 py-1 bg-white/10 hover:bg-white/15 text-white/80 rounded transition-colors">Cancel</button>
+                    </div>
+
+                    <!-- Extend size form -->
+                    <div id="partition-extend-form" class="hidden flex items-center gap-3 text-xs bg-white/5 p-2 rounded border border-white/10 mt-1">
+                        <span class="text-white/70">Size to add:</span>
+                        <input type="number" id="partition-extend-input" class="bg-[#242136] border border-white/15 rounded px-2 py-1 w-24 text-white text-xs text-center focus:outline-none focus:border-indigo-500 font-mono">
+                        <span class="text-white/50">MB</span>
+                        <button onclick="applyExtendPartition()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium transition-colors">Apply</button>
+                        <button onclick="hidePartitionForms()" class="px-3 py-1 bg-white/10 hover:bg-white/15 text-white/80 rounded transition-colors">Cancel</button>
+                    </div>
+
+                    <!-- Warning/Error message row -->
+                    <div id="partition-error-msg" class="text-xs text-rose-400 mt-1 font-medium hidden">
+                        ⚠️ Windows cannot be installed to this partition. It must be a Primary partition of at least 15 GB.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 7: Installation Progress Tracker -->
+            <div id="page-install-progress" class="setup-page hidden flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Installing Windows</h2>
+                    <p class="text-sm text-white/60">Your PC will restart several times. This might take a while.</p>
+                </div>
+
+                <div class="flex flex-col gap-4 py-2">
+                    <!-- Progress list -->
+                    <div class="flex items-center gap-3 text-sm" id="p-step-1">
+                        <span class="step-icon text-indigo-400 font-bold">✓</span>
+                        <span class="text-white/90">Copying Windows files (100%)</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm" id="p-step-2">
+                        <span class="step-icon text-white/30 font-bold">◷</span>
+                        <span class="text-white/50" id="prep-progress-text">Getting files ready for installation (0%)</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm" id="p-step-3">
+                        <span class="step-icon text-white/30 font-bold">☐</span>
+                        <span class="text-white/50">Installing features</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm" id="p-step-4">
+                        <span class="step-icon text-white/30 font-bold">☐</span>
+                        <span class="text-white/50">Installing updates</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm" id="p-step-5">
+                        <span class="step-icon text-white/30 font-bold">☐</span>
+                        <span class="text-white/50">Finishing up</span>
+                    </div>
+                </div>
+
+                <!-- Elegant Loading Bar -->
+                <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden border border-white/5">
+                    <div id="install-progress-bar" class="bg-indigo-500 h-full w-[5%] transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Page 8: Faux Reboot Countdown screen -->
+            <div id="page-reboot" class="setup-page hidden flex flex-col items-center justify-center gap-6 py-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-light mb-4">Restarting in <span id="reboot-seconds" class="font-bold text-indigo-400">10</span> seconds...</h2>
+                    <p class="text-sm text-white/50 max-w-sm mx-auto">Installation was successful! Windows needs to reboot to initialize the user environment.</p>
+                </div>
+                
+                <div class="w-[80px] h-[80px] flex items-center justify-center rounded-full border-4 border-indigo-500 border-t-transparent animate-spin my-4">
+                    <span class="text-xs text-white tracking-widest font-mono">OK</span>
+                </div>
+
+                <button onclick="triggerImmediateReboot()" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 rounded text-sm font-medium transition-colors border border-white/10">
+                    Restart now
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Setup Window Footer Navigation -->
+        <div id="setup-footer" class="px-6 py-5 border-t border-white/5 bg-white/5 flex justify-between items-center">
+            <button class="text-xs text-white/40 hover:text-white/60 transition-colors" onclick="alert('Help: F10 in BIOS lets you save, US layout selected by default.')">
+                Need help installing?
+            </button>
+            <div class="flex gap-3">
+                <button id="btn-back" onclick="goBack()" class="px-5 py-1.5 bg-white/5 hover:bg-white/10 text-white/80 hover:text-white rounded text-sm transition-colors border border-white/10 disabled:opacity-30 disabled:pointer-events-none" disabled>
+                    Back
+                </button>
+                <button id="btn-next" onclick="goNext()" class="px-6 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-sm font-medium transition-all shadow-md hover:shadow-indigo-500/10">
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripted State Manager -->
+    <script>
+        const pagesSequence = [
+            'page-language',
+            'page-install-now',
+            'page-product-key',
+            'page-os-architecture',
+            'page-license',
+            'page-install-type',
+            'page-install-progress',
+            'page-reboot'
+        ];
+        
+        let currentPageIndex = 0;
+        let selectedInstallTypeMode = ''; // 'upgrade' or 'custom'
+
+        function goToPage(pageId) {
+            const targetIndex = pagesSequence.indexOf(pageId);
+            if (targetIndex !== -1) {
+                currentPageIndex = targetIndex;
+                updatePagesUI();
+            }
+        }
+
+        function updatePagesUI() {
+            // Hide all pages
+            document.querySelectorAll('.setup-page').forEach(p => p.classList.add('hidden'));
+            
+            // Show current page
+            const activePageId = pagesSequence[currentPageIndex];
+            document.getElementById(activePageId).classList.remove('hidden');
+
+            // Hide or Show Footer depending on progress or reboot pages
+            const footer = document.getElementById('setup-footer');
+            if (activePageId === 'page-install-progress' || activePageId === 'page-reboot' || activePageId === 'page-install-now') {
+                footer.classList.add('hidden');
+            } else {
+                footer.classList.remove('hidden');
+            }
+
+            // Disable or Enable Back Button
+            const backBtn = document.getElementById('btn-back');
+            if (currentPageIndex === 0) {
+                backBtn.disabled = true;
+            } else {
+                backBtn.disabled = false;
+            }
+
+            // Reset Next Button state
+            const nextBtn = document.getElementById('btn-next');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50');
+
+            // Specific page lockings
+            if (activePageId === 'page-license') {
+                toggleLicenseNext();
+            }
+            if (activePageId === 'page-install-type') {
+                // If partition list is not open, block Next button
+                if (selectedInstallTypeMode === '') {
+                    nextBtn.disabled = true;
+                    nextBtn.classList.add('opacity-50');
+                }
+            }
+        }
+
+        function goNext() {
+            const activePageId = pagesSequence[currentPageIndex];
+            
+            // Validation step for Product Key page
+            if (activePageId === 'page-product-key') {
+                const keyInput = document.getElementById('product-key-input').value.trim();
+                const keyErr = document.getElementById('key-validation');
+                
+                // Allow empty key to pass (corresponds to bypass button)
+                if (keyInput !== "") {
+                    // Check standard 5x5 product key regex format: XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
+                    const keyRegex = /^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/i;
+                    if (!keyRegex.test(keyInput)) {
+                        keyErr.classList.remove('hidden');
+                        return; // Prevent advancing
+                    }
+                }
+                keyErr.classList.add('hidden');
+            }
+
+            // If advancing to EULA, clear partition selection
+            if (activePageId === 'page-license') {
+                selectedInstallTypeMode = '';
+                document.getElementById('type-selector-buttons').classList.remove('hidden');
+                document.getElementById('custom-partition-ui').classList.add('hidden');
+            }
+
+            // If EULA accepted and we click Next on custom installer partition screen
+            if (activePageId === 'page-install-type') {
+                if (selectedInstallTypeMode === 'custom') {
+                    // Validate selected partition
+                    const selectedPart = partitions.find(p => p.id === selectedPartitionId);
+                    const errorMsg = document.getElementById('partition-error-msg');
+                    
+                    if (!selectedPart) {
+                        errorMsg.innerText = "⚠️ Please select a partition to install Windows.";
+                        errorMsg.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    if (selectedPart.type !== 'Primary') {
+                        if (selectedPart.type === 'Unallocated') {
+                            errorMsg.innerText = "⚠️ Windows cannot be installed to this unallocated space. Please click 'New' to create a partition.";
+                        } else {
+                            errorMsg.innerText = `⚠️ Windows cannot be installed on this partition (Type: ${selectedPart.type === 'System' ? 'System Reserved' : 'MSR Reserved'}). It is reserved for system use.`;
+                        }
+                        errorMsg.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    if (selectedPart.sizeGB < 15) {
+                        errorMsg.innerText = "⚠️ The selected partition is too small. Windows requires a partition of at least 15 GB.";
+                        errorMsg.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // All check passed! Format the primary partition if not formatted or just proceed
+                    errorMsg.classList.add('hidden');
+                }
+                
+                // Advance straight to progress screen
+                currentPageIndex = pagesSequence.indexOf('page-install-progress');
+                updatePagesUI();
+                startInstallationSimulation();
+                return;
+            }
+
+            if (currentPageIndex < pagesSequence.length - 1) {
+                currentPageIndex++;
+                updatePagesUI();
+            }
+        }
+
+        function goBack() {
+            const activePageId = pagesSequence[currentPageIndex];
+            
+            // If we are showing partition board, go back to type selector inside page-install-type instead of previous page!
+            if (activePageId === 'page-install-type' && selectedInstallTypeMode !== '') {
+                selectedInstallTypeMode = '';
+                document.getElementById('type-selector-buttons').classList.remove('hidden');
+                document.getElementById('custom-partition-ui').classList.add('hidden');
+                updatePagesUI();
+                return;
+            }
+
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updatePagesUI();
+            }
+        }
+
+        // Active selection for OS Rows
+        function selectOS(elem, editionName) {
+            document.querySelectorAll('.os-row').forEach(row => {
+                row.classList.remove('bg-indigo-600/25', 'active-os-row');
+            });
+            elem.classList.add('bg-indigo-600/25', 'active-os-row');
+            document.getElementById('selected-os-edition').value = editionName;
+        }
+
+        // Checkbox binding for license page
+        function toggleLicenseNext() {
+            const checked = document.getElementById('accept-terms-check').checked;
+            const nextBtn = document.getElementById('btn-next');
+            if (checked) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50');
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.classList.add('opacity-50');
+            }
+        }
+
+        // Install Types Options selection
+        function selectInstallType(type) {
+            selectedInstallTypeMode = type;
+            const nextBtn = document.getElementById('btn-next');
+            
+            if (type === 'upgrade') {
+                alert("Simulating Upgrade Sequence: Upgrade is only supported on formatted drives in this web sandbox. We will perform a clean partition installation instead!");
+                selectInstallType('custom');
+            } else if (type === 'custom') {
+                // Show Custom Partition allocation screen
+                document.getElementById('type-selector-buttons').classList.add('hidden');
+                document.getElementById('custom-partition-ui').classList.remove('hidden');
+                
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50');
+                
+                renderPartitions();
+            }
+        }
+
+        // Product Key auto-hyphenation formatter
+        document.getElementById('product-key-input').addEventListener('input', function (e) {
+            let target = e.target;
+            let position = target.selectionStart;
+            let val = target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            let finalVal = "";
+            
+            for (let i = 0; i < val.length; i++) {
+                if (i > 0 && i % 5 === 0) {
+                    finalVal += "-";
+                }
+                finalVal += val[i];
+            }
+            
+            target.value = finalVal;
+            
+            // Readjust cursor position correctly
+            if (e.inputType === 'deleteContentBackward') {
+                return;
+            }
+            if (target.value[position - 1] === '-') {
+                target.setSelectionRange(position + 1, position + 1);
+            }
+        });
+
+        // PROGRESS BAR & STEPS INSTALLATION TIMER
+        function startInstallationSimulation() {
+            const bar = document.getElementById('install-progress-bar');
+            const prepText = document.getElementById('prep-progress-text');
+            
+            const step1 = document.getElementById('p-step-1');
+            const step2 = document.getElementById('p-step-2');
+            const step3 = document.getElementById('p-step-3');
+            const step4 = document.getElementById('p-step-4');
+            const step5 = document.getElementById('p-step-5');
+
+            let progressValue = 5; // Copying files is already checked (100%)
+            bar.style.width = '10%';
+
+            // Step 2: Preparing files (0% to 100%)
+            let prepProgress = 0;
+            const prepInterval = setInterval(() => {
+                prepProgress += Math.floor(Math.random() * 8) + 4;
+                if (prepProgress >= 100) {
+                    prepProgress = 100;
+                    clearInterval(prepInterval);
+                    
+                    // Mark step 2 as finished
+                    step2.querySelector('.step-icon').innerText = '✓';
+                    step2.querySelector('.step-icon').classList.replace('text-white/30', 'text-indigo-400');
+                    step2.querySelector('span:last-child').classList.replace('text-white/50', 'text-white/90');
+                    
+                    // Proceed to step 3: Features
+                    runFeaturesStep();
+                }
+                prepText.innerText = `Getting files ready for installation (${prepProgress}%)`;
+                bar.style.width = `${10 + (prepProgress * 0.5)}%`; // Up to 60%
+            }, 300);
+
+            function runFeaturesStep() {
+                step3.querySelector('.step-icon').innerText = '◷';
+                step3.querySelector('.step-icon').classList.replace('text-white/30', 'text-indigo-400');
+                
+                setTimeout(() => {
+                    step3.querySelector('.step-icon').innerText = '✓';
+                    step3.querySelector('span:last-child').classList.replace('text-white/50', 'text-white/90');
+                    bar.style.width = '75%';
+                    
+                    // Proceed to step 4: Updates
+                    runUpdatesStep();
+                }, 1500);
+            }
+
+            function runUpdatesStep() {
+                step4.querySelector('.step-icon').innerText = '◷';
+                step4.querySelector('.step-icon').classList.replace('text-white/30', 'text-indigo-400');
+                
+                setTimeout(() => {
+                    step4.querySelector('.step-icon').innerText = '✓';
+                    step4.querySelector('span:last-child').classList.replace('text-white/50', 'text-white/90');
+                    bar.style.width = '90%';
+                    
+                    // Proceed to step 5: Finishing up
+                    runFinishingStep();
+                }, 1500);
+            }
+
+            function runFinishingStep() {
+                step5.querySelector('.step-icon').innerText = '◷';
+                step5.querySelector('.step-icon').classList.replace('text-white/30', 'text-indigo-400');
+                
+                setTimeout(() => {
+                    step5.querySelector('.step-icon').innerText = '✓';
+                    step5.querySelector('span:last-child').classList.replace('text-white/50', 'text-white/90');
+                    bar.style.width = '100%';
+                    
+                    // Mark OS Edition in LocalStorage for reference
+                    const chosenEdition = document.getElementById('selected-os-edition').value;
+                    localStorage.setItem('win12_edition', chosenEdition);
+                    
+                    // Open Reboot page
+                    setTimeout(() => {
+                        currentPageIndex = pagesSequence.indexOf('page-reboot');
+                        updatePagesUI();
+                        startRebootTimer();
+                    }, 1000);
+                    
+                }, 1200);
+            }
+        }
+
+        // Reboot countdown mechanism
+        let countdownTimer;
+        function startRebootTimer() {
+            let secondsLeft = 10;
+            const textSpan = document.getElementById('reboot-seconds');
+            
+            countdownTimer = setInterval(() => {
+                secondsLeft--;
+                textSpan.innerText = secondsLeft;
+                if (secondsLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    triggerImmediateReboot();
+                }
+            }, 1000);
+        }
+
+        function triggerImmediateReboot() {
+            if (countdownTimer) clearInterval(countdownTimer);
+            
+            // Faux system shutdown backdrop transition
+            document.body.innerHTML = `
+                <div class="flex flex-col items-center justify-center text-white h-screen w-screen bg-black transition-all duration-1000">
+                    <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <span class="text-sm tracking-widest text-indigo-400 font-medium">Shutting down...</span>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                // Redirect to OOBE screen
+                window.location.href = './win-oobe.html';
+            }, 1500);
+        }
+
+        // ==========================================
+        // DYNAMIC PARTITION MANAGER IMPLEMENTATION
+        // ==========================================
+        let partitions = [
+            { id: 1, name: 'Drive 0 Unallocated Space', sizeGB: 100.0, freeGB: 100.0, type: 'Unallocated' }
+        ];
+        let selectedPartitionId = 1;
+        let partitionIdCounter = 2;
+        let dialogCallback = null;
+        let activeBootMode = localStorage.getItem('boot_mode') || 'UEFI';
+
+        // Load BIOS config from API
+        fetch('/api/bios-config')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.bootMode) {
+                    activeBootMode = data.bootMode;
+                    localStorage.setItem('boot_mode', activeBootMode);
+                    renderPartitions();
+                }
+            })
+            .catch(err => console.error("Error fetching bios-config in win-setup:", err));
+
+        function renderPartitions() {
+            const tbody = document.getElementById('partition-table-body');
+            if (!tbody) return;
+
+            // Update disk style label
+            const diskStyleLabel = document.getElementById('disk-style-label');
+            if (diskStyleLabel) {
+                if (activeBootMode === 'Legacy') {
+                    diskStyleLabel.innerText = 'Style: MBR (Legacy BIOS)';
+                } else {
+                    diskStyleLabel.innerText = 'Style: GPT (UEFI)';
+                }
+            }
+
+            tbody.innerHTML = '';
+            
+            partitions.forEach(p => {
+                const isSelected = p.id === selectedPartitionId;
+                const rowClass = isSelected 
+                    ? 'bg-indigo-600/30 border-b border-indigo-500/40 font-semibold cursor-pointer select-none transition-colors' 
+                    : 'border-b border-white/5 hover:bg-white/5 cursor-pointer select-none transition-colors';
+                
+                // Format size displays nicely
+                const sizeText = formatPartitionSize(p.sizeGB);
+                const freeText = p.isFormatting ? 'Formatting...' : formatPartitionSize(p.freeGB);
+                
+                // Display type
+                let typeDisplay = '';
+                if (p.type === 'System') typeDisplay = 'System Reserved';
+                else if (p.type === 'MSR') typeDisplay = 'MSR (Reserved)';
+                else if (p.type === 'Primary') typeDisplay = 'Primary';
+                else if (p.type === 'Unallocated') typeDisplay = '';
+
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.onclick = () => selectPartition(p.id);
+                
+                const iconSvg = p.type === 'Unallocated'
+                    ? `<svg class="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`
+                    : `<svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path></svg>`;
+
+                tr.innerHTML = `
+                    <td class="p-2 flex items-center gap-2.5">
+                        ${iconSvg}
+                        <span class="${p.isFormatting ? 'animate-pulse text-indigo-400 font-medium' : ''}">${p.name}</span>
+                    </td>
+                    <td class="p-2 text-right font-mono">${sizeText}</td>
+                    <td class="p-2 text-right font-mono ${p.isFormatting ? 'text-indigo-400' : ''}">${freeText}</td>
+                    <td class="p-2 font-medium">${typeDisplay}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+
+            updateOperationsToolbar();
+        }
+
+        function formatPartitionSize(sizeGB) {
+            if (sizeGB < 1.0) {
+                return `${Math.round(sizeGB * 1024)}.0 MB`;
+            }
+            return `${sizeGB.toFixed(1)} GB`;
+        }
+
+        function selectPartition(id) {
+            selectedPartitionId = id;
+            hidePartitionForms();
+            document.getElementById('partition-error-msg').classList.add('hidden');
+            renderPartitions();
+        }
+
+        function updateOperationsToolbar() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            
+            const btnDelete = document.getElementById('part-btn-delete');
+            const btnFormat = document.getElementById('part-btn-format');
+            const btnExtend = document.getElementById('part-btn-extend');
+            const btnNew = document.getElementById('part-btn-new');
+
+            if (!p) {
+                btnDelete.disabled = true;
+                btnFormat.disabled = true;
+                btnExtend.disabled = true;
+                btnNew.disabled = true;
+                return;
+            }
+
+            if (p.type === 'Unallocated') {
+                btnDelete.disabled = true;
+                btnFormat.disabled = true;
+                btnExtend.disabled = true;
+                btnNew.disabled = false;
+            } else {
+                btnDelete.disabled = false;
+                btnFormat.disabled = !(p.type === 'Primary' || p.type === 'System');
+                
+                const index = partitions.indexOf(p);
+                const hasNextUnallocated = index !== -1 && index < partitions.length - 1 && partitions[index + 1].type === 'Unallocated';
+                btnExtend.disabled = !(p.type === 'Primary' && hasNextUnallocated);
+                btnNew.disabled = true;
+            }
+        }
+
+        function showNewPartitionForm() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || p.type !== 'Unallocated') return;
+
+            verifyPartitionTableCompatibility(() => {
+                hidePartitionForms();
+                
+                const form = document.getElementById('partition-size-form');
+                form.classList.remove('hidden');
+                
+                const input = document.getElementById('partition-size-input');
+                const maxMB = Math.round(p.sizeGB * 1024);
+                input.value = maxMB;
+                input.max = maxMB;
+                input.min = 16;
+                input.focus();
+            });
+        }
+
+        function showExtendPartitionForm() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || p.type !== 'Primary') return;
+
+            const index = partitions.indexOf(p);
+            if (index === -1 || index >= partitions.length - 1 || partitions[index + 1].type !== 'Unallocated') return;
+
+            verifyPartitionTableCompatibility(() => {
+                hidePartitionForms();
+
+                const form = document.getElementById('partition-extend-form');
+                form.classList.remove('hidden');
+
+                const nextUnallocated = partitions[index + 1];
+                const maxAddMB = Math.round(nextUnallocated.sizeGB * 1024);
+                
+                const input = document.getElementById('partition-extend-input');
+                input.value = maxAddMB;
+                input.max = maxAddMB;
+                input.min = 8;
+                input.focus();
+            });
+        }
+
+        function verifyPartitionTableCompatibility(onCompatible) {
+            const hasMSR = partitions.some(x => x.type === 'MSR');
+            const hasSystem = partitions.some(x => x.type === 'System');
+            const hasPrimary = partitions.some(x => x.type === 'Primary');
+            const hasCreatedPartitions = hasSystem || hasPrimary;
+
+            const bootMode = activeBootMode;
+
+            let hasMismatch = false;
+            let targetStyle = '';
+
+            if (bootMode === 'UEFI') {
+                if (hasCreatedPartitions && !hasMSR) {
+                    hasMismatch = true;
+                    targetStyle = 'GPT (UEFI)';
+                }
+            } else {
+                if (hasMSR) {
+                    hasMismatch = true;
+                    targetStyle = 'MBR (Legacy)';
+                }
+            }
+
+            if (hasMismatch) {
+                showCustomDialog(
+                    "Partition Style Mismatch",
+                    `The partition table format does not match the BIOS Boot Mode (${bootMode === 'UEFI' ? 'UEFI' : 'Legacy BIOS'}). Would you like Windows Setup to automatically REPAIR the partition table layout to match ${targetStyle}?`,
+                    true,
+                    (approved) => {
+                        if (approved) {
+                            repairPartitionLayout();
+                        } else {
+                            onCompatible();
+                        }
+                    }
+                );
+            } else {
+                onCompatible();
+            }
+        }
+
+        function repairPartitionLayout() {
+            const totalGB = partitions.reduce((sum, p) => sum + p.sizeGB, 0);
+            const systemGB = 500 / 1024; // 500 MB
+
+            partitionIdCounter = 1;
+            let newParts = [];
+
+            if (activeBootMode === 'UEFI') {
+                const msrGB = 16 / 1024; // 16 MB
+                const primaryGB = totalGB - systemGB - msrGB;
+
+                const systemPart = {
+                    id: partitionIdCounter++,
+                    name: 'Drive 0 Partition 1: System Reserved',
+                    sizeGB: systemGB,
+                    freeGB: systemGB,
+                    type: 'System'
+                };
+
+                const msrPart = {
+                    id: partitionIdCounter++,
+                    name: 'Drive 0 Partition 2: MSR (Reserved)',
+                    sizeGB: msrGB,
+                    freeGB: msrGB,
+                    type: 'MSR'
+                };
+
+                const primaryPart = {
+                    id: partitionIdCounter++,
+                    name: 'Drive 0 Partition 3: Primary',
+                    sizeGB: primaryGB,
+                    freeGB: primaryGB,
+                    type: 'Primary'
+                };
+
+                newParts = [systemPart, msrPart, primaryPart];
+                selectedPartitionId = primaryPart.id;
+            } else {
+                const primaryGB = totalGB - systemGB;
+
+                const systemPart = {
+                    id: partitionIdCounter++,
+                    name: 'Drive 0 Partition 1: System Reserved',
+                    sizeGB: systemGB,
+                    freeGB: systemGB,
+                    type: 'System'
+                };
+
+                const primaryPart = {
+                    id: partitionIdCounter++,
+                    name: 'Drive 0 Partition 2: Primary',
+                    sizeGB: primaryGB,
+                    freeGB: primaryGB,
+                    type: 'Primary'
+                };
+
+                newParts = [systemPart, primaryPart];
+                selectedPartitionId = primaryPart.id;
+            }
+
+            partitions = newParts;
+            alert(`Repair Completed: The partition table has been converted and repaired to ${activeBootMode === 'UEFI' ? 'GPT' : 'MBR'} style to match the BIOS Boot Mode!`);
+            renderPartitions();
+        }
+
+        function hidePartitionForms() {
+            document.getElementById('partition-size-form').classList.add('hidden');
+            document.getElementById('partition-extend-form').classList.add('hidden');
+        }
+
+        function showCustomDialog(title, message, isWarning, onConfirm) {
+            document.getElementById('dialog-title').innerText = title;
+            document.getElementById('dialog-message').innerText = message;
+            
+            const dialog = document.getElementById('custom-dialog');
+            dialog.classList.remove('hidden');
+            
+            dialogCallback = onConfirm;
+        }
+
+        function closeCustomDialog(approved) {
+            document.getElementById('custom-dialog').classList.add('hidden');
+            if (dialogCallback) {
+                dialogCallback(approved);
+                dialogCallback = null;
+            }
+        }
+
+        function applyNewPartition() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || p.type !== 'Unallocated') return;
+
+            const input = document.getElementById('partition-size-input');
+            const sizeMB = parseInt(input.value);
+            const maxMB = Math.round(p.sizeGB * 1024);
+
+            if (isNaN(sizeMB) || sizeMB < 16 || sizeMB > maxMB) {
+                alert(`Please enter a size between 16 MB and ${maxMB} MB.`);
+                return;
+            }
+
+            hidePartitionForms();
+
+            const hasExistingPartitions = partitions.some(x => x.type !== 'Unallocated');
+            const requestedGB = sizeMB / 1024;
+
+            if (!hasExistingPartitions) {
+                showCustomDialog(
+                    "Windows Setup",
+                    "To ensure that all Windows features work correctly, Windows might create additional partitions for system files.",
+                    true,
+                    (approved) => {
+                        if (approved) {
+                            const bootMode = activeBootMode;
+                            const index = partitions.indexOf(p);
+                            const systemGB = 500 / 1024; // 500 MB
+                            
+                            let newPartitionsToInsert = [];
+                            
+                            if (bootMode === 'Legacy') {
+                                const primaryGB = requestedGB - systemGB;
+                                if (primaryGB < 0.01) {
+                                    alert("The specified size is too small to split system reserved partitions. Please enter a larger size.");
+                                    return;
+                                }
+                                
+                                const systemPart = {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Partition 1: System Reserved',
+                                    sizeGB: systemGB,
+                                    freeGB: systemGB,
+                                    type: 'System'
+                                };
+                                
+                                const primaryPart = {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Partition 2: Primary',
+                                    sizeGB: primaryGB,
+                                    freeGB: primaryGB,
+                                    type: 'Primary'
+                                };
+                                
+                                newPartitionsToInsert = [systemPart, primaryPart];
+                            } else {
+                                const msrGB = 16 / 1024;     // 16 MB
+                                const primaryGB = requestedGB - systemGB - msrGB;
+                                
+                                if (primaryGB < 0.01) {
+                                    alert("The specified size is too small to split system reserved partitions. Please enter a larger size.");
+                                    return;
+                                }
+                                
+                                const systemPart = {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Partition 1: System Reserved',
+                                    sizeGB: systemGB,
+                                    freeGB: systemGB,
+                                    type: 'System'
+                                };
+                                
+                                const msrPart = {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Partition 2: MSR (Reserved)',
+                                    sizeGB: msrGB,
+                                    freeGB: msrGB,
+                                    type: 'MSR'
+                                };
+                                
+                                const primaryPart = {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Partition 3: Primary',
+                                    sizeGB: primaryGB,
+                                    freeGB: primaryGB,
+                                    type: 'Primary'
+                                };
+                                
+                                newPartitionsToInsert = [systemPart, msrPart, primaryPart];
+                            }
+                            
+                            partitions.splice(index, 1, ...newPartitionsToInsert);
+                            
+                            const leftoverGB = p.sizeGB - requestedGB;
+                            if (leftoverGB > 0.005) {
+                                partitions.splice(index + newPartitionsToInsert.length, 0, {
+                                    id: partitionIdCounter++,
+                                    name: 'Drive 0 Unallocated Space',
+                                    sizeGB: leftoverGB,
+                                    freeGB: leftoverGB,
+                                    type: 'Unallocated'
+                                });
+                            }
+                            
+                            const createdPrimary = newPartitionsToInsert.find(x => x.type === 'Primary');
+                            selectedPartitionId = createdPrimary.id;
+                            renderPartitions();
+                        }
+                    }
+                );
+            } else {
+                const index = partitions.indexOf(p);
+                const partIndex = partitions.filter(x => x.type !== 'Unallocated').length + 1;
+
+                const newPrimary = {
+                    id: partitionIdCounter++,
+                    name: `Drive 0 Partition ${partIndex}: Primary`,
+                    sizeGB: requestedGB,
+                    freeGB: requestedGB,
+                    type: 'Primary'
+                };
+
+                partitions.splice(index, 1, newPrimary);
+
+                const leftoverGB = p.sizeGB - requestedGB;
+                if (leftoverGB > 0.005) {
+                    partitions.splice(index + 1, 0, {
+                        id: partitionIdCounter++,
+                        name: 'Drive 0 Unallocated Space',
+                        sizeGB: leftoverGB,
+                        freeGB: leftoverGB,
+                        type: 'Unallocated'
+                    });
+                }
+
+                selectedPartitionId = newPrimary.id;
+                renderPartitions();
+            }
+        }
+
+        function deleteSelectedPartition() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || p.type === 'Unallocated') return;
+
+            verifyPartitionTableCompatibility(() => {
+                showCustomDialog(
+                    "Delete Partition",
+                    "If you delete this partition, any data stored on it will be lost. This includes recovery files, custom configurations, or manufacturer files. Are you sure you want to continue?",
+                    true,
+                    (approved) => {
+                        if (approved) {
+                            p.type = 'Unallocated';
+                            p.name = 'Drive 0 Unallocated Space';
+                            p.freeGB = p.sizeGB;
+
+                            mergeAdjacentUnallocated();
+                            
+                            const matchingItem = partitions.find(x => x.id === p.id);
+                            if (matchingItem) {
+                                selectedPartitionId = p.id;
+                            } else {
+                                const firstUnallocated = partitions.find(x => x.type === 'Unallocated');
+                                if (firstUnallocated) selectedPartitionId = firstUnallocated.id;
+                            }
+
+                            renderPartitions();
+                        }
+                    }
+                );
+            });
+        }
+
+        function mergeAdjacentUnallocated() {
+            for (let i = 0; i < partitions.length - 1; i++) {
+                if (partitions[i].type === 'Unallocated' && partitions[i+1].type === 'Unallocated') {
+                    partitions[i].sizeGB += partitions[i+1].sizeGB;
+                    partitions[i].freeGB = partitions[i].sizeGB;
+                    partitions.splice(i + 1, 1);
+                    i--;
+                }
+            }
+        }
+
+        function formatSelectedPartition() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || !(p.type === 'Primary' || p.type === 'System')) return;
+
+            verifyPartitionTableCompatibility(() => {
+                showCustomDialog(
+                    "Format Partition",
+                    "Formatting this partition will permanently erase all files and application allocations. Are you sure you want to format it?",
+                    true,
+                    (approved) => {
+                        if (approved) {
+                            p.isFormatting = true;
+                            renderPartitions();
+
+                            setTimeout(() => {
+                                p.isFormatting = false;
+                                p.freeGB = p.sizeGB;
+                                renderPartitions();
+                            }, 1200);
+                        }
+                    }
+                );
+            });
+        }
+
+        function applyExtendPartition() {
+            const p = partitions.find(x => x.id === selectedPartitionId);
+            if (!p || p.type !== 'Primary') return;
+
+            const index = partitions.indexOf(p);
+            if (index === -1 || index >= partitions.length - 1 || partitions[index + 1].type !== 'Unallocated') return;
+
+            const nextUnallocated = partitions[index + 1];
+            const input = document.getElementById('partition-extend-input');
+            const addMB = parseInt(input.value);
+            const maxAddMB = Math.round(nextUnallocated.sizeGB * 1024);
+
+            if (isNaN(addMB) || addMB < 8 || addMB > maxAddMB) {
+                alert(`Please enter an extension size between 8 MB and ${maxAddMB} MB.`);
+                return;
+            }
+
+            hidePartitionForms();
+
+            const addGB = addMB / 1024;
+            p.sizeGB += addGB;
+            p.freeGB += addGB;
+
+            nextUnallocated.sizeGB -= addGB;
+            nextUnallocated.freeGB -= addGB;
+
+            if (nextUnallocated.sizeGB < 0.005) {
+                partitions.splice(index + 1, 1);
+            }
+
+            renderPartitions();
+        }
+
+        // Initial launch page setup
+        updatePagesUI();
+    </script>
+
+    <!-- Custom Warning Dialog Overlay -->
+    <div id="custom-dialog" class="hidden fixed inset-0 z-[100] bg-black/60 flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-[#1e1c30]/95 backdrop-blur-md border border-white/15 rounded-xl p-6 w-[420px] shadow-2xl flex flex-col gap-4 text-white">
+            <div class="flex items-start gap-3.5">
+                <span class="text-3xl text-amber-500 select-none">⚠️</span>
+                <div>
+                    <h3 class="text-sm font-semibold tracking-wide" id="dialog-title">Windows Setup</h3>
+                    <p class="text-xs text-white/70 mt-2 leading-relaxed" id="dialog-message"></p>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 mt-3">
+                <button id="dialog-cancel-btn" onclick="closeCustomDialog(false)" class="px-4 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs tracking-wide transition-colors">Cancel</button>
+                <button id="dialog-ok-btn" onclick="closeCustomDialog(true)" class="px-5 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded text-xs font-semibold tracking-wide transition-colors shadow-lg shadow-indigo-500/20 border border-white/10">OK</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

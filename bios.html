@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win12 BIOS Setup</title>
+    <link rel="stylesheet" href="./apps/style/bios.css">
+    <link rel="shortcut icon" href="./pwa/logo.png" type="image/x-icon">
+</head>
+
+<body id="body" ontouchstart="return;">
+    <!-- Exit Confirmation Dialog -->
+    <div id="confirmContainer">
+        <div id="exit_confirm">
+            <div id="confirm" data-show="false">
+                <p id="confirm-tit">Save configuration changes and exit now?</p>
+                <div class="btns">
+                    <a class="confirm-button selected-btn" id="ok-btn">[ Yes ]</a>
+                    <a class="confirm-button" id="cancel-btn">[ No ]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BIOS Header bar -->
+    <header>
+        <span>Aptio Setup Utility - Copyright (C) 2026 Megatrends, Inc.</span>
+        <span id="bios-version-info">v2.22.1248</span>
+    </header>
+
+    <!-- Navigation tabs -->
+    <nav class="pages">
+        <a class="tab tab0 show foc" id="main" onclick="changePage(0)">Main</a>
+        <a class="tab tab1" id="advanced" onclick="changePage(1)">Advanced</a>
+        <a class="tab tab2" id="security" onclick="changePage(2)">Security</a>
+        <a class="tab tab3" id="boot" onclick="changePage(3)">Boot</a>
+        <a class="tab tab4" id="exit" onclick="changePage(4)">Exit</a>
+    </nav>
+
+    <!-- Main Workspace with Split-Screen layout -->
+    <div class="main-content">
+        <!-- Main Page -->
+        <div id="mainPage" class="page page0 show">
+            <div class="settings-col">
+                <div class="table">
+                    <div class="row-item section-header">System Information</div>
+                    
+                    <div class="row-item selectable-row" id="row-time" data-help="Set the system time. Use Tab to switch between hours/minutes/seconds, and +/- keys to adjust.">
+                        <span class="label">System Time</span>
+                        <span class="value" id="time">[12:00:00]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-date" data-help="Set the system date. Use Tab to switch between MM/DD/YYYY, and +/- keys to adjust.">
+                        <span class="label">System Date</span>
+                        <span class="value" id="date">[07/14/2026]</span>
+                    </div>
+
+                    <div class="row-item section-header">Hardware Details</div>
+                    
+                    <div class="row-item" data-help="Displays BIOS Version. Non-configurable.">
+                        <span class="label">BIOS Version</span>
+                        <span class="value">Win12 UEFI BIOS v1.2.4</span>
+                    </div>
+                    
+                    <div class="row-item" data-help="Displays CPU Manufacturer and Model details. Non-configurable.">
+                        <span class="label">Processor</span>
+                        <span class="value">Quantum Chip 550W @ 8192 GHz</span>
+                    </div>
+                    
+                    <div class="row-item" data-help="Displays installed memory capacity. Non-configurable.">
+                        <span class="label">System Memory</span>
+                        <span class="value">100 GB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="help-col">
+                <div>
+                    <h3 class="help-title">Item Specific Help</h3>
+                    <p class="help-text" id="help-text-0">Use [↑/↓] to select System Time or System Date, then press [Enter] to enter adjust mode. Use [+/-] to alter values, then [Enter] to save.</p>
+                </div>
+                <div class="help-text" style="color: #fcfc54; border-top: 1px dashed #aaaaaa; padding-top: 10px;">
+                    Tip: Save USB priority in Boot page to launch Windows Installation.
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Page -->
+        <div id="advancedPage" class="page page1">
+            <div class="settings-col">
+                <div class="table">
+                    <div class="row-item section-header">CPU Power Configuration</div>
+                    
+                    <div class="row-item selectable-row" id="row-hyperthreading" data-option="cpuHyperThreading" data-help="Enable/Disable Intel Hyper-Threading Technology. Allows parallel processing.">
+                        <span class="label">Intel Hyper-Threading</span>
+                        <span class="value option">[Enabled]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-turboboost" data-option="cpuTurboBoost" data-help="Enable/Disable Intel Turbo Boost. Automatically boosts core speeds when needed.">
+                        <span class="label">Intel Turbo Boost</span>
+                        <span class="value option">[Enabled]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-coreratio" data-option="cpuCoreRatio" data-help="Modify CPU Core Clock Multiplier. Select Auto for safe default settings.">
+                        <span class="label">CPU Core Ratio</span>
+                        <span class="value option">[Auto]</span>
+                    </div>
+
+                    <div class="row-item section-header">Memory Timing Speed</div>
+                    
+                    <div class="row-item selectable-row" id="row-memfreq" data-option="memoryFrequency" data-help="Change memory speed frequency configuration. Defaults to Auto.">
+                        <span class="label">Memory Frequency</span>
+                        <span class="value option">[Auto]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-memtiming" data-option="memoryTimingMode" data-help="Control Memory Clock timings. Advanced configurations.">
+                        <span class="label">Memory Timing Mode</span>
+                        <span class="value option">[Auto]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-xmpprof" data-option="xmpProfile" data-help="Intel Extreme Memory Profile (XMP). Overclocks RAM to advertised maximum rates.">
+                        <span class="label">XMP Profile</span>
+                        <span class="value option">[Disabled]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="help-col">
+                <div>
+                    <h3 class="help-title">Item Specific Help</h3>
+                    <p class="help-text" id="help-text-1">Select an item and press [Enter] to toggle values or select configuration details.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Page -->
+        <div id="securityPage" class="page page2">
+            <div class="settings-col">
+                <div class="table">
+                    <div class="row-item section-header">Security Configuration</div>
+                    
+                    <div class="row-item selectable-row" id="row-tpm" data-option="tpmState" data-help="Toggle TPM 2.0 (Trusted Platform Module). Windows 11/12 requires TPM 2.0 to be enabled.">
+                        <span class="label">TPM 2.0 Security State</span>
+                        <span class="value option">[Enabled]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-secureboot" data-option="secureBoot" data-help="Secure Boot configuration. Restricts running unauthorized boot systems. Required for Win12.">
+                        <span class="label">Secure Boot Configuration</span>
+                        <span class="value option">[Enabled]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-adminpwd" data-help="Configure UEFI Administrative Password. Safe system configuration access limit.">
+                        <span class="label">Administrator Password</span>
+                        <span class="value option">[Not Set]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-userpwd" data-help="Configure standard System User login password required at boot block.">
+                        <span class="label">User Password</span>
+                        <span class="value option">[Not Set]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="help-col">
+                <div>
+                    <h3 class="help-title">Item Specific Help</h3>
+                    <p class="help-text" id="help-text-2">Modify Security and TPM parameters here. Changing TPM 2.0 or Secure Boot affects Windows installation requirements check.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boot Page -->
+        <div id="bootPage" class="page page3">
+            <div class="settings-col">
+                <div class="table">
+                    <div class="row-item section-header">Boot Configurations</div>
+                    
+                    <div class="row-item selectable-row" id="row-fastboot" data-option="fastBoot" data-help="Enable/Disable Fast Boot to bypass full UEFI memory diagnostic sequence on starts.">
+                        <span class="label">Fast Boot</span>
+                        <span class="value option">[Enabled]</span>
+                    </div>
+                    
+                    <div class="row-item selectable-row" id="row-bootmode" data-option="bootMode" data-help="Change boot architecture mode. Modern Windows requires [UEFI] layout.">
+                        <span class="label">Boot Mode</span>
+                        <span class="value option">[UEFI]</span>
+                    </div>
+
+                    <div class="row-item section-header">Boot Devices Priority</div>
+                    
+                    <div class="row-item selectable-row" id="row-bootpriority" data-option="bootPriority" data-help="Set the primary startup boot device. Select [USB Installation Media] to boot into Windows Setup wizard! Press [Enter] to toggle order.">
+                        <span class="label">1st Boot Priority</span>
+                        <span class="value option" id="val-bootpriority">[Hard Drive]</span>
+                    </div>
+                    
+                    <div class="row-item" data-help="Secondary startup device. Swaps automatically with 1st boot device.">
+                        <span class="label">2nd Boot Priority</span>
+                        <span class="value" id="val-bootpriority2">USB Installation Media</span>
+                    </div>
+                </div>
+            </div>
+            <div class="help-col">
+                <div>
+                    <h3 class="help-title">Item Specific Help</h3>
+                    <p class="help-text" id="help-text-3">Modify the device boot loading sequence. Change the 1st Boot Priority to 'USB Installation Media' to trigger the original Windows Setup installation wizard upon exit!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exit Page -->
+        <div id="exitPage" class="page page4">
+            <div class="settings-col">
+                <div class="exit-list">
+                    <div class="exit-item selectable-row" id="row-exit-save" data-action="save" data-help="Exit the setup saving configuration settings changes made to the BIOS NVRAM.">
+                        Exit Saving Changes
+                    </div>
+                    <div class="exit-item selectable-row" id="row-exit-discard" data-action="discard" data-help="Exit the setup without saving any modifications made during this active session.">
+                        Exit Discarding Changes
+                    </div>
+                    <div class="exit-item selectable-row" id="row-exit-defaults" data-action="defaults" data-help="Load default factory configurations for all bios parameters.">
+                        Load Setup Defaults
+                    </div>
+                </div>
+            </div>
+            <div class="help-col">
+                <div>
+                    <h3 class="help-title">Item Specific Help</h3>
+                    <p class="help-text" id="help-text-4">Exit system setup. Select Exit Saving Changes and ensure '1st Boot Priority' is set to 'USB Installation Media' to install Windows.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shortcut Footer Keys Bar -->
+    <footer>
+        <div class="footer-keys">
+            <span><span class="key-label">F1</span>General Help</span>
+            <span><span class="key-label">ESC</span>Exit</span>
+            <span><span class="key-label">↑↓</span>Select Item</span>
+            <span><span class="key-label">←→</span>Select Screen</span>
+        </div>
+        <div class="footer-keys">
+            <span><span class="key-label">+/-</span>Change Option</span>
+            <span><span class="key-label">Enter</span>Select / Submenu</span>
+            <span><span class="key-label">F10</span>Save and Exit</span>
+        </div>
+    </footer>
+
+    <script src="./scripts/jq.min.js"></script>
+    <script src="./scripts/bios_kernel.js"></script>
+</body>
+
+</html>
